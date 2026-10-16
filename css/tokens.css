@@ -134,6 +134,9 @@
   --dur-foto: 1.6s;
   --dur-quadro: .7s;
   --atraso-quadro: 150ms;
+  --desloc-foto: 20px;          /* parallax máximo da foto inteira */
+  --desloc-nome: 12px;          /* subida leve dos nomes ao sair */
+  --curso-scroll: 200px;        /* rolagem em que o efeito chega ao fim */
   --dur-aba: 5.4s;
   --dur-revelar: .9s;
 

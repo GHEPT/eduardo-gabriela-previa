@@ -169,6 +169,32 @@
     });
   }
 
+  /* Foto inteira acompanha o scroll devagar; os nomes sobem e somem. Sem monograma. */
+  if (!reduz) {
+    var janela = document.querySelector('.janela');
+    var titulo = $('nomes');
+    var pedidoScroll = false;
+    var estilo = getComputedStyle(html);
+    var curso = parseFloat(estilo.getPropertyValue('--curso-scroll')) || 200;
+    var maxFoto = parseFloat(estilo.getPropertyValue('--desloc-foto')) || 20;
+    var sobe = parseFloat(estilo.getPropertyValue('--desloc-nome')) || 12;
+    function aplicaScroll() {
+      pedidoScroll = false;
+      var y = window.scrollY || 0;
+      var p = y <= 0 ? 0 : Math.min(1, y / curso);
+      if (janela) janela.style.transform = p ? 'translate3d(0,' + (p * maxFoto).toFixed(2) + 'px,0)' : '';
+      if (titulo) {
+        titulo.style.transform = p ? 'translate3d(0,' + (-p * sobe).toFixed(2) + 'px,0)' : '';
+        titulo.style.opacity = p ? String(1 - p) : '';
+      }
+    }
+    window.addEventListener('scroll', function () {
+      if (pedidoScroll) return;
+      pedidoScroll = true;
+      requestAnimationFrame(aplicaScroll);
+    }, { passive: true });
+  }
+
   /* ================= FOTOS ================= */
   var figs = document.querySelectorAll('.foto');
   function poeFoto(i, u, pos) {
