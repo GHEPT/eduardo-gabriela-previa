@@ -9,7 +9,10 @@
   var C = window.CONFIG || {};
   var $ = function (id) { return document.getElementById(id); };
   var html = document.documentElement;
-  var reduz = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function movimentoReduzido() {
+    return !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }
+  var reduz = movimentoReduzido();
   var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return '&#' + c.charCodeAt(0) + ';'; }); };
   var quando = function (iso) { return Date.parse(iso); };
 
@@ -77,6 +80,7 @@
   }
   /* Caminho B: parado no poster até o toque. Âncora ou menos movimento não carregam o vídeo. */
   var video = null;
+  var toqueEm = 0;
   var alvoHash = null; try { alvoHash = location.hash && document.querySelector(location.hash); } catch (e) {}
   function tiraVideo() {
     html.classList.remove('video-capa', 'video-abre');
@@ -97,15 +101,37 @@
     video.src = C.aberturaVideo;
     env.appendChild(video);
     html.classList.add('video-capa');
-    video.addEventListener('ended', function () {
-      if (!video || estado !== 'opening') return;
+    var encerrando = false;
+    function pertoDoFim() {
+      return !!(video && video.duration > 0.5 && video.currentTime >= video.duration - 0.25);
+    }
+    /* O Safari dispara `ended` no load ou no play, com currentTime ainda em 0.
+       Só vale o fim de verdade: o vídeo chegou ao final. */
+    function aoTerminar() {
+      if (encerrando || !video || estado !== 'opening') return;
+      if (Date.now() - toqueEm < 800) return;
+      if (!(video.currentTime > 0.4) || !pertoDoFim()) return;
+      encerrando = true;
       html.classList.remove('fechado');
       corTema();
       video.classList.add('saindo');
       var saiu = false;
-      var fim = function () { if (saiu) return; saiu = true; completo(); };
-      video.addEventListener('transitionend', fim);
-      setTimeout(fim, 260);
+      var comecou = Date.now();
+      var fim = function () {
+        if (saiu || estado !== 'opening') return;
+        if (Date.now() - comecou < 180) return;
+        saiu = true;
+        completo();
+      };
+      video.addEventListener('transitionend', function (ev) {
+        if (ev.target !== video || ev.propertyName !== 'opacity') return;
+        fim();
+      });
+      setTimeout(fim, 220);
+    }
+    video.addEventListener('ended', aoTerminar);
+    video.addEventListener('timeupdate', function () {
+      if (video && video.paused && pertoDoFim()) aoTerminar();
     });
     video.addEventListener('error', function () {
       var noMeio = estado === 'opening';
@@ -127,16 +153,51 @@
     aberto();
     var nomes = $('nomes');
     if (nomes) nomes.focus({ preventScroll: true });
-    if (!reduz) {
-      html.classList.add('capa-entra');
-      var titulo = $('nomes');
-      if (titulo) titulo.addEventListener('animationend', function (ev) {
-        if (fimNomes || ev.animationName !== 'sobe-nome' || !ev.target.classList.contains('nome-d')) return;
-        fimNomes = true;
-        var espera = tempoMs('--atraso-nome');
-        setTimeout(function () { nomesLiberados = true; soltaFoto(); }, espera);
-      });
+    if (movimentoReduzido()) {
+      html.classList.remove('capa-espera');
+      return;
     }
+    comecaCapa();
+  }
+  /* O WebKit não roda a animação no mesmo quadro em que a camada some,
+     nem se ela começou enquanto a capa estava coberta. Espera dois frames
+     e recomeça os mesmos keyframes. */
+  function reinicia(sel) {
+    var els = document.querySelectorAll(sel);
+    var i;
+    for (i = 0; i < els.length; i++) els[i].style.animation = 'none';
+    void html.offsetWidth;
+    for (i = 0; i < els.length; i++) els[i].style.animation = '';
+  }
+  function comecaCapa() {
+    html.classList.add('capa-espera');
+    html.classList.remove('capa-entra');
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        if (estado !== 'complete' || movimentoReduzido()) return;
+        html.classList.add('capa-entra');
+        reinicia('.nome-e, .nome-d, .capa h1 .amp');
+        ligaFimDosNomes();
+      });
+    });
+  }
+  function ligaFimDosNomes() {
+    var titulo = $('nomes');
+    if (!titulo || fimNomes) return;
+    var inicio = Date.now();
+    var min = tempoMs('--dur-nome') * 2 + tempoMs('--atraso-nome') * 2;
+    titulo.addEventListener('animationend', function (ev) {
+      var nome = ev.animationName;
+      if (fimNomes || nome !== 'sobe-nome' || !ev.target.classList.contains('nome-d')) return;
+      if (Date.now() - inicio < min - 80) return;
+      liberaNomes();
+    });
+    setTimeout(liberaNomes, min + tempoMs('--dur-nome'));
+  }
+  function liberaNomes() {
+    if (fimNomes) return;
+    fimNomes = true;
+    setTimeout(function () { nomesLiberados = true; soltaFoto(); }, tempoMs('--atraso-nome'));
   }
   var fimNomes = false, nomesLiberados = false, fotoPronta = false;
   function tempoMs(nome) {
@@ -146,8 +207,9 @@
     return /ms/.test(v) ? n : n * 1000;
   }
   function soltaFoto() {
-    if (reduz || !nomesLiberados || !fotoPronta || html.classList.contains('capa-foto')) return;
+    if (movimentoReduzido() || !nomesLiberados || !fotoPronta || html.classList.contains('capa-foto')) return;
     html.classList.add('capa-foto');
+    reinicia('.janela img, .janela .vela, .janela .num, .capa .linha span, .contagem .bloco, .contagem i');
   }
   function marcaFoto() { fotoPronta = true; soltaFoto(); }
   function abrir() {
@@ -157,16 +219,45 @@
     $('abrir').disabled = true;
     revelaMusica(true);
     if (video) {
+      toqueEm = Date.now();
+      try { if (video.currentTime > 0) video.currentTime = 0; } catch (e) {}
+      vigiaVideo();
       var toca = video.play();
       if (toca && toca.catch) toca.catch(function () { tiraVideo(); segueCss(); });
       return;
     }
     segueCss();
   }
+  function vigiaVideo() {
+    var parado = 0;
+    var id = setInterval(function () {
+      if (!video || estado !== 'opening') { clearInterval(id); return; }
+      if (video.readyState >= 2 && !video.paused && video.currentTime > 0.2) { parado = 0; return; }
+      parado += 1;
+      if (parado < 4) return;
+      clearInterval(id);
+      tiraVideo();
+      segueCss();
+    }, 1000);
+  }
   function segueCss() {
+    if (estado === 'complete') return;
     html.classList.add('abrindo');
     bor.classList.add('voa');
     b2.classList.add('voa');
+    var site = document.querySelector('.site');
+    requestAnimationFrame(function () {
+      var total = 2400;
+      if (site && site.getAnimations) {
+        site.getAnimations().forEach(function (a) {
+          if (a.animationName !== 'sobe' || !a.effect || !a.effect.getComputedTiming) return;
+          var t = a.effect.getComputedTiming();
+          var soma = (t.delay || 0) + (t.duration || 0);
+          if (soma > 500) total = soma + 40;
+        });
+      }
+      setTimeout(function () { if (estado === 'opening') completo(); }, total);
+    });
   }
   document.addEventListener('animationend', function (ev) {
     if (estado !== 'opening') return;

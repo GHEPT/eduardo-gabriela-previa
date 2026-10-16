@@ -12,6 +12,11 @@
   if (C.demo && q.get('paleta')) paleta = q.get('paleta').trim().toLowerCase();
   if ((C.paletas || []).indexOf(paleta) === -1) paleta = C.paletas ? C.paletas[0] : 'azul-amarelo';
   html.setAttribute('data-paleta', paleta);
+  /* Antes da primeira pintura: a capa já nasce escondida. O Safari não
+     anima se o opacity 0 chega depois que a camada de abertura aparece. */
+  if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+    html.classList.add('capa-espera');
+  }
 
   if (!C.demo) return;
   // só caminhos relativos, https, blob ou data:image: nada é enviado a lugar nenhum

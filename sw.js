@@ -6,7 +6,7 @@
    • Google Fonts: cache depois do 1º acesso
    Ao publicar mudanças, suba a VERSAO para limpar caches antigos.
    ===================================================================== */
-const VERSAO = 'convite-v2-video';
+const VERSAO = 'convite-v2-entrada';
 const ESSENCIAIS = [
   './', 'index.html', 'manifest.webmanifest',
   'css/paletas.css', 'css/tokens.css', 'css/base.css', 'css/envelope.css', 'css/secoes.css',
