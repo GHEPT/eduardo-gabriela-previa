@@ -127,6 +127,7 @@
     aberto();
     var nomes = $('nomes');
     if (nomes) nomes.focus({ preventScroll: true });
+    if (!reduz) html.classList.add('capa-entra');
   }
   function abrir() {
     if (estado !== 'idle') return;
@@ -150,6 +151,7 @@
     if (estado !== 'opening') return;
     if (ev.animationName === 'sobe') completo();
   });
+  if (!reduz) html.classList.add('capa-espera');
   /* âncora (#rsvp) ou movimento reduzido: a capa, sem o vídeo e sem a coreografia */
   if (alvoHash || reduz) {
     revelaMusica(false);

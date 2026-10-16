@@ -22,6 +22,19 @@
 .capa h1 .amp{position:absolute;left:50%;top:46%;z-index:3;transform:translate(-50%,-50%);pointer-events:none;
   font-family:var(--fonte-serif);font-style:italic;font-weight:400;font-size:.5em;line-height:1;
   color:var(--cor-acento);background:none;-webkit-text-fill-color:currentColor;padding:0}
+html.capa-espera .capa h1 .nome-e,
+html.capa-espera .capa h1 .nome-d{opacity:0;transform:translate3d(0,12px,0)}
+html.capa-espera .capa h1 .amp{opacity:0}
+html.capa-entra .capa h1 .nome-e{animation:sobe-nome var(--dur-nome) var(--curva-capa) both}
+html.capa-entra .capa h1 .amp{animation:surge-amp var(--dur-nome) var(--curva-capa) calc(var(--dur-nome) + var(--atraso-nome)) both}
+html.capa-entra .capa h1 .nome-d{animation:sobe-nome var(--dur-nome) var(--curva-capa) calc(var(--dur-nome) * 2 + var(--atraso-nome) * 2) both}
+@keyframes sobe-nome{from{opacity:0;transform:translate3d(0,12px,0)}to{opacity:1;transform:none}}
+@keyframes surge-amp{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){
+  html.capa-espera .capa h1 .nome-e,html.capa-espera .capa h1 .nome-d,
+  html.capa-entra .capa h1 .nome-e,html.capa-entra .capa h1 .nome-d{animation:none;opacity:1;transform:none}
+  html.capa-espera .capa h1 .amp,html.capa-entra .capa h1 .amp{animation:none;opacity:1}
+}
 .fotos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;max-width:var(--largura-miolo)}
 .foto{position:relative;aspect-ratio:9/20;overflow:hidden;container-type:inline-size;background-color:var(--c);background-image:var(--grao)}
 .foto:nth-child(1){--c:var(--cor-foto-vazia-1)}.foto:nth-child(2){--c:var(--cor-foto-vazia-2)}.foto:nth-child(3){--c:var(--cor-foto-vazia-3)}
