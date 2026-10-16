@@ -1,0 +1,13 @@
+---
+description: Direção visual e de movimento (CSS, HTML, SVG)
+globs: ["css/**", "index.html", "js/main.js", "js/dev.js"]
+alwaysApply: false
+---
+- Papelaria fina, não "site": papel algodão, relevo seco (letterpress), lacre de cera, foil dourado só no "&".
+- Tipografia: Pinyon Script (nomes e títulos), Cormorant Garamond (texto), caixa-alta espaçada (.caps, 0.2–0.34em) para dados curtos.
+- Luz sempre do alto à esquerda: sombras vão para baixo e para a direita.
+- Evite: gradientes chamativos, excesso de animação, florais decorativos, ícones genéricos, cards repetidos, cara de dashboard, cara de IA.
+- Gradientes e sombras só como material físico (papel, cera, foil, véu de foto), sempre com o comentário `taste-skill-ignore: motivo`.
+- Movimento: uma única coreografia (abertura) e revelações discretas ao rolar. Use as curvas e durações de tokens.css; respeite prefers-reduced-motion.
+- Nova cor = nova primitiva --p-* em TODAS as paletas + token semântico em tokens.css. Rode `npm run lint:cores`.
+- Teste em 390×844 @2x e desktop 1440 (`npm run shots`, `npm run shots:paletas`).

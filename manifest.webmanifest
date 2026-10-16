@@ -1,0 +1,20 @@
+{
+  "name": "Eduardo & Gabriela",
+  "short_name": "Eduardo & Gabriela",
+  "description": "Convite do casamento de Eduardo & Gabriela · 11.12.2026 · Cosmópolis-SP",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#08388C",
+  "theme_color": "#08388C",
+  "icons": [
+    { "src": "assets/icones/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "assets/icones/icone-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icones/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icones/icone-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

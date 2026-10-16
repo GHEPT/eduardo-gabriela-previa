@@ -1,0 +1,14 @@
+---
+description: Regras gerais do convite Eduardo & Gabriela
+alwaysApply: true
+---
+- Site ESTÁTICO: HTML/CSS/JS puro, sem build, sem framework, só caminhos relativos (o Pages fica em subpasta).
+- Cores SÓ por tokens: nenhum #hex, rgb()/hsl() literal ou white/black fora de css/tokens.css e css/paletas.css. Use var(--cor-*) ou rgba(var(--rgb-*),a). Rode `npm run lint:cores`.
+- Texturas e lacre são máscaras neutras; a cor vem do CSS. Nunca gere imagem por paleta.
+- Honestidade: não invente Pix, dados bancários, links de pagamento, WhatsApp, horários, endereços, histórias, depoimentos, nomes ou fotos. O que faltar fica "pendente" (docs/CONTEUDO.md). Nada de integração simulada.
+- Sem segredos no navegador: o repositório é público.
+- Privacidade das fotos: só via scripts/fotos.py (sem EXIF/GPS); não publique docs/referencias nem originais; não altere a regra de object URL do painel.
+- Mobile-first para iPhone Safari: safe-area, 100lvh/100svh, prefers-reduced-motion.
+- Textos em pt-BR, tom afetuoso, sem emoji, sem marketing.
+- Depois de mudar algo, rode `npm run shots` e `npm run lint`; a paleta padrão tem de bater com reference/index-v5.2.html.
+- Leia docs/SPEC.md antes de mudar comportamento e docs/ROADMAP.md antes de começar uma tarefa.

@@ -1,0 +1,245 @@
+/* =====================================================================
+   envelope.css: abertura: envelope 3D, lacre, borboleta
+   Luz sempre do alto à esquerda. Texturas são cinza neutro sobre a cor
+   do token (soft-light), então trocar a paleta não exige novas imagens.
+   ===================================================================== */
+/* full-bleed no iPhone: cobre também a área atrás da barra de status e da barra
+   de ferramentas translúcida do Safari. 100lvh = viewport GRANDE (barras recolhidas);
+   100vh fica como reserva para navegadores antigos. Nunca use só inset:0 aqui. */
+.env{position:fixed;top:0;left:0;right:0;bottom:auto;height:100vh;height:100lvh;min-height:100%;z-index:50;overflow:hidden;background-color:var(--cor-mesa);background-image:var(--textura-papel);background-size:var(--textura-tam);background-blend-mode:soft-light} /* taste-skill-ignore: reserva para navegadores sem lvh */
+.env[hidden]{display:none}
+.envelope{position:absolute;inset:0;perspective:1500px;perspective-origin:50% 45%;will-change:transform;
+  box-shadow:var(--sombra-envelope)} /* taste-skill-ignore: sombra do envelope sobre a mesa */
+.forro{position:absolute;inset:0;background-color:var(--cor-forro);
+  background-image:radial-gradient(120% 90% at 30% 25%,rgba(var(--rgb-branco),.22),rgba(var(--rgb-branco),0) 60%),var(--textura-algodao); /* taste-skill-ignore: luz no forro */
+  background-size:auto,var(--textura-tam);background-blend-mode:normal,soft-light;
+  box-shadow:inset 0 0 70px rgba(var(--rgb-forro-oclusao),.32),inset 0 0 14px rgba(var(--rgb-forro-oclusao),.25)} /* taste-skill-ignore: oclusão nas dobras internas */
+.aba{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
+.face,.verso{position:absolute;inset:0;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.face i,.verso i{position:absolute;inset:0;display:block;background-color:var(--c);background-size:auto,var(--textura-tam);background-blend-mode:normal,soft-light}
+.face i{background-image:var(--luz),var(--textura-algodao),var(--textura-relevo);
+  background-size:auto,auto,320px 320px,cover;background-position:center,center,center,center;
+  background-repeat:no-repeat,no-repeat,repeat,no-repeat;background-blend-mode:normal,normal,soft-light,soft-light}
+.face i::after,.verso i::after{content:"";position:absolute;inset:0;background:var(--cor-aba-sombreamento);opacity:0}
+.verso i{--c:var(--cor-forro-verso);
+  background-image:linear-gradient(160deg,rgba(var(--rgb-branco),.25),rgba(var(--rgb-forro-verso),.10)),var(--textura-algodao),var(--textura-relevo); /* taste-skill-ignore: face interna da aba */
+  background-size:auto,320px 320px,cover;background-position:center,center,center;background-repeat:no-repeat,repeat,no-repeat;
+  background-blend-mode:normal,soft-light,soft-light}
+.verso i::after{opacity:var(--aba-verso-sombra)}
+.face svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+/* cada aba: cor, luz (mais clara no alto à esquerda), vinco escuro na dobra */
+.aba-e{transform-origin:0 50%}
+.aba-e .face i{--c:var(--cor-envelope-medio);--luz:linear-gradient(90deg,rgba(var(--rgb-sombra),.20),rgba(var(--rgb-sombra),0) 26px),linear-gradient(160deg,rgba(var(--rgb-branco),.14),rgba(var(--rgb-branco),0) 55%,rgba(var(--rgb-sombra),.06))} /* taste-skill-ignore: luz e vinco */
+.aba-d{transform-origin:100% 50%}
+.aba-d .face i{--c:var(--cor-envelope-sombra);--luz:linear-gradient(270deg,rgba(var(--rgb-sombra),.24),rgba(var(--rgb-sombra),0) 26px),linear-gradient(160deg,rgba(var(--rgb-branco),.08),rgba(var(--rgb-branco),0) 55%,rgba(var(--rgb-sombra),.10))} /* taste-skill-ignore: luz e vinco */
+.aba-b{transform-origin:50% 100%}
+.aba-b .face i{--c:var(--cor-envelope);--luz:linear-gradient(0deg,rgba(var(--rgb-sombra),.22),rgba(var(--rgb-sombra),0) 26px),linear-gradient(150deg,rgba(var(--rgb-branco),.10),rgba(var(--rgb-branco),0) 60%,rgba(var(--rgb-sombra),.08))} /* taste-skill-ignore: luz e vinco */
+.aba-c{transform-origin:50% 0}
+.aba-c .face i{--c:var(--cor-envelope-claro);--luz:linear-gradient(180deg,rgba(var(--rgb-sombra),.16),rgba(var(--rgb-sombra),0) 22px),linear-gradient(135deg,rgba(var(--rgb-branco),.20),rgba(var(--rgb-branco),0) 50%,rgba(var(--rgb-sombra),.07))} /* taste-skill-ignore: luz e vinco */
+.aba-e .face i{clip-path:polygon(0 0,53% 50%,0 100%)}
+.aba-e .verso{transform:rotateY(180deg)}.aba-e .verso i{clip-path:polygon(100% 0,47% 50%,100% 100%)}
+.aba-d .face i{clip-path:polygon(100% 0,47% 50%,100% 100%)}
+.aba-d .verso{transform:rotateY(180deg)}.aba-d .verso i{clip-path:polygon(0 0,53% 50%,0 100%)}
+.aba-b .face i{clip-path:polygon(0 100%,50% 47%,100% 100%)}
+.aba-b .verso{transform:rotateX(180deg)}.aba-b .verso i{clip-path:polygon(0 0,50% 53%,100% 0)}
+.aba-c .face i{clip-path:polygon(0 0,100% 0,50% 55%)}
+.aba-c .verso{transform:rotateX(180deg)}.aba-c .verso i{clip-path:polygon(0 100%,100% 100%,50% 45%)}
+.abrir{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:none;border:0;cursor:pointer;-webkit-appearance:none;appearance:none}
+.abrir:focus-visible{outline:none}
+.envelope:has(.abrir:focus-visible) .aba-c .lacre{outline:1px solid var(--cor-toque);outline-offset:-14px;border-radius:50%}
+.env .lacre{width:var(--lacre-tam);height:var(--lacre-tam)}
+/* o lacre é filho da aba de cima, no mesmo ponto de antes (grupo centrado + margem de 5% da largura) */
+.aba-c .lacre{position:absolute;left:50%;top:50%;margin:0;pointer-events:none;
+  transform:translate(-50%,-50%) translateY(calc(2.5vw - 17px)) translateZ(1px);
+  -webkit-backface-visibility:hidden;backface-visibility:hidden}
+.toque{position:absolute;left:0;right:0;top:calc(50% + var(--lacre-tam) / 2 + 2.5vw - 9px);margin:0;text-align:center;
+  color:var(--cor-toque);font-style:italic;font-size:17px;letter-spacing:.02em;
+  text-shadow:0 1px 1px rgba(var(--rgb-sombra),.35)} /* taste-skill-ignore: tinta prensada no papel */
+/* fechado: uma folha só, na cor da paleta. O X é a sombra da dobra, não um painel de outra cor.
+   O filtro fica na .face: na .i o clip-path corta a sombra. */
+.fechado:not(.abrindo) .aba-c .face i,
+.fechado:not(.abrindo) .aba-b .face i,
+.fechado:not(.abrindo) .aba-e .face i,
+.fechado:not(.abrindo) .aba-d .face i{--c:var(--cor-envelope-claro)}
+.fechado:not(.abrindo) .aba-c .face,
+.abrindo .aba-c .face{
+  filter:drop-shadow(-1.5px -1.5px 0 rgba(var(--rgb-luz),.72)) drop-shadow(3px 4px 0 rgba(var(--rgb-sombra),.62)) drop-shadow(8px 14px 11px rgba(var(--rgb-sombra),.34))} /* taste-skill-ignore: espessura da aba de cima, igual ao abrir */
+/* a aba de baixo cobre as laterais. A sombra antiga caía para dentro do papel;
+   a aresta acompanha o V e pousa na folha de trás, nos dois estados. */
+.aba-b .face,.abrindo .aba-b .face{filter:none}
+.aba-b .dobra{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.aba-b .dobra polyline{fill:none;stroke-linecap:butt;stroke-linejoin:round}
+.aba-b .dobra-sombra{stroke:rgb(var(--rgb-sombra));stroke-width:26;filter:blur(3.2px)} /* taste-skill-ignore: contato da dobra de baixo */
+.aba-b .sombra-e{opacity:.5}
+.aba-b .sombra-d{opacity:.72}
+.aba-b i .luz{stroke:rgb(var(--rgb-luz));stroke-width:2.4;fill:none}
+.aba-b .luz-e{opacity:.5}
+.aba-b .luz-d{opacity:.18}
+.fechado:not(.abrindo) .aba-e .face,
+.fechado:not(.abrindo) .aba-d .face{filter:var(--sombra-aba)}
+.abrindo .face{filter:var(--sombra-aba)}
+.envelope::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;
+  background:radial-gradient(ellipse 92% 72% at 44% 40%,rgba(var(--rgb-sombra),0) 46%,rgba(var(--rgb-sombra),.22) 100%)} /* taste-skill-ignore: oclusão nos cantos do papel */
+.abrindo .envelope::after{opacity:0}
+
+/* ---- lacre de cera: 7 camadas; as imagens são só máscaras (alfa) ---- */
+.lacre{position:relative;display:block}
+.lacre>span,.lacre-base>span{position:absolute;inset:0;display:block;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.lacre-base{position:absolute;inset:0;filter:brightness(1.2)} /* devolve a luz difusa > 100% do relevo */
+.lacre-sombra{background:rgb(var(--rgb-lacre-sombra));-webkit-mask-image:url("../assets/lacre/lacre-sombra.webp");mask-image:url("../assets/lacre/lacre-sombra.webp")}
+.lacre-cera{background:radial-gradient(41.8% 41.8% at 44.4% 40.7%,var(--cor-lacre-claro),var(--cor-lacre-medio) 42%,var(--cor-lacre-escuro)); /* taste-skill-ignore: volume da cera */
+  -webkit-mask-image:url("../assets/lacre/lacre-forma.webp");mask-image:url("../assets/lacre/lacre-forma.webp")}
+.lacre-disco,.lacre-anel{transform:translate(1%,1.4%) rotate(-3.5deg);transform-origin:50% 51%}
+.lacre-disco{clip-path:circle(22.5% at 50% 50%);background:radial-gradient(27% 27% at 53.6% 55.4%,var(--cor-lacre-disco-1),var(--cor-lacre-disco-2))} /* taste-skill-ignore: disco prensado */
+.lacre-anel{background:radial-gradient(circle closest-side,transparent 39.55%,var(--cor-lacre-anel) 39.6%,var(--cor-lacre-anel) 40.9%,transparent 40.95%)} /* taste-skill-ignore: filete do sinete */
+.lacre-letras{background:var(--lacre-letra);-webkit-mask-image:url("../assets/lacre/lacre-letras.webp");mask-image:url("../assets/lacre/lacre-letras.webp")}
+.lacre-sombreado{background:var(--cor-lacre-sombreado);-webkit-mask-image:url("../assets/lacre/lacre-sombreado.webp");mask-image:url("../assets/lacre/lacre-sombreado.webp")}
+.lacre-brilho{background:var(--cor-lacre-brilho);opacity:var(--lacre-brilho-forca);-webkit-mask-image:url("../assets/lacre/lacre-brilho.webp");mask-image:url("../assets/lacre/lacre-brilho.webp")}
+
+/* abertura: as abas viram no lugar. O lacre está na aba de cima e sobe com ela. */
+.abrindo .toque{transition:opacity .3s ease;opacity:0}
+.abrindo .aba-c{animation:abre-c var(--dur-aba) linear .4s forwards}
+.abrindo .aba-b{animation:abre-b var(--dur-aba) linear .58s forwards}
+.abrindo .aba-e,.abrindo .aba-d{animation:var(--anim) var(--dur-aba) linear .74s forwards}
+.abrindo .aba-e{--anim:abre-e}.abrindo .aba-d{--anim:abre-d}
+.abrindo .aba-c i::after{animation:sombreia var(--dur-aba) linear .4s forwards}
+.abrindo .aba-b i::after{animation:sombreia var(--dur-aba) linear .58s forwards}
+.abrindo .aba-e i::after,.abrindo .aba-d i::after{animation:sombreia var(--dur-aba) linear .74s forwards}
+.abrindo .aba-c .verso i::after,.abrindo .aba-b .verso i::after,.abrindo .aba-e .verso i::after,.abrindo .aba-d .verso i::after{animation-name:clareia}
+.abrindo .env{animation:some .8s ease 2.8s forwards}
+/* até 20% da virada, o tempo é o de antes; a subida, ainda cobrindo o envelope, é que fica lenta */
+@keyframes abre-c{
+  0%{transform:rotateX(0deg);animation-timing-function:linear}
+  3.4%{transform:rotateX(9deg);animation-timing-function:linear}
+  4.8%{transform:rotateX(18deg);animation-timing-function:linear}
+  6.5%{transform:rotateX(36deg);animation-timing-function:linear}
+  7.8%{transform:rotateX(46deg);animation-timing-function:linear}
+  10.2%{transform:rotateX(56deg);animation-timing-function:linear}
+  14.8%{transform:rotateX(68deg);animation-timing-function:linear}
+  22.2%{transform:rotateX(82deg);animation-timing-function:linear}
+  33.3%{transform:rotateX(100deg);animation-timing-function:linear}
+  48.1%{transform:rotateX(125deg);animation-timing-function:linear}
+  66.7%{transform:rotateX(150deg);animation-timing-function:linear}
+  85.2%{transform:rotateX(170deg);animation-timing-function:linear}
+  100%{transform:rotateX(180deg)}}
+@keyframes abre-b{
+  0%{transform:rotateX(0deg);animation-timing-function:linear}
+  3.4%{transform:rotateX(-9deg);animation-timing-function:linear}
+  4.8%{transform:rotateX(-18deg);animation-timing-function:linear}
+  6.5%{transform:rotateX(-36deg);animation-timing-function:linear}
+  7.8%{transform:rotateX(-46deg);animation-timing-function:linear}
+  10.2%{transform:rotateX(-56deg);animation-timing-function:linear}
+  14.8%{transform:rotateX(-68deg);animation-timing-function:linear}
+  22.2%{transform:rotateX(-82deg);animation-timing-function:linear}
+  33.3%{transform:rotateX(-100deg);animation-timing-function:linear}
+  48.1%{transform:rotateX(-125deg);animation-timing-function:linear}
+  66.7%{transform:rotateX(-150deg);animation-timing-function:linear}
+  85.2%{transform:rotateX(-170deg);animation-timing-function:linear}
+  100%{transform:rotateX(-180deg)}}
+@keyframes abre-e{
+  0%{transform:rotateY(0deg);animation-timing-function:linear}
+  3.4%{transform:rotateY(-9deg);animation-timing-function:linear}
+  4.8%{transform:rotateY(-18deg);animation-timing-function:linear}
+  6.5%{transform:rotateY(-36deg);animation-timing-function:linear}
+  7.8%{transform:rotateY(-46deg);animation-timing-function:linear}
+  10.2%{transform:rotateY(-56deg);animation-timing-function:linear}
+  14.8%{transform:rotateY(-68deg);animation-timing-function:linear}
+  22.2%{transform:rotateY(-82deg);animation-timing-function:linear}
+  33.3%{transform:rotateY(-100deg);animation-timing-function:linear}
+  48.1%{transform:rotateY(-125deg);animation-timing-function:linear}
+  66.7%{transform:rotateY(-150deg);animation-timing-function:linear}
+  85.2%{transform:rotateY(-170deg);animation-timing-function:linear}
+  100%{transform:rotateY(-180deg)}}
+@keyframes abre-d{
+  0%{transform:rotateY(0deg);animation-timing-function:linear}
+  3.4%{transform:rotateY(9deg);animation-timing-function:linear}
+  4.8%{transform:rotateY(18deg);animation-timing-function:linear}
+  6.5%{transform:rotateY(36deg);animation-timing-function:linear}
+  7.8%{transform:rotateY(46deg);animation-timing-function:linear}
+  10.2%{transform:rotateY(56deg);animation-timing-function:linear}
+  14.8%{transform:rotateY(68deg);animation-timing-function:linear}
+  22.2%{transform:rotateY(82deg);animation-timing-function:linear}
+  33.3%{transform:rotateY(100deg);animation-timing-function:linear}
+  48.1%{transform:rotateY(125deg);animation-timing-function:linear}
+  66.7%{transform:rotateY(150deg);animation-timing-function:linear}
+  85.2%{transform:rotateY(170deg);animation-timing-function:linear}
+  100%{transform:rotateY(180deg)}}
+@keyframes sombreia{50%{opacity:.38}to{opacity:.38}}
+@keyframes clareia{0%,50%{opacity:var(--aba-verso-clareia)}to{opacity:.02}}
+@keyframes some{to{opacity:0}}
+
+/* ---- borboleta: voa uma vez. As asas giram no corpo; a descida é mais rápida que a subida. ---- */
+.borboleta{position:fixed;left:50%;top:50%;z-index:55;width:176px;height:141px;margin:-70px 0 0 -88px;opacity:0;pointer-events:none}
+.borboleta[hidden]{display:none}
+.borboleta svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;display:block}
+.b-sombra{position:absolute;inset:0;opacity:0;filter:brightness(0) blur(4px)}
+.b-corpo{position:absolute;inset:0}
+.b-palco{position:absolute;inset:0;perspective:280px;perspective-origin:50% 42%;transform-style:preserve-3d}
+.asa{position:absolute;top:0;bottom:0;width:50%;transform-style:preserve-3d}
+.asa-e{left:0;transform-origin:100% 46%;transform:rotateY(-32deg)}
+.asa-d{right:0;transform-origin:0 46%;transform:rotateY(32deg)}
+.miolo{z-index:2}
+.voa{animation:voa 2.9s var(--curva-voo) 1.2s forwards}
+.voa .b-sombra{animation:sombra-sobe 2.9s var(--curva-voo) 1.2s forwards}
+.voa .b-corpo{animation:sobe-alto 2.9s var(--curva-voo) 1.2s forwards}
+.voa .asa-d{animation:bate-d .38s linear 1.2s 7 both}
+.voa .asa-e{animation:bate-e .38s linear 1.2s 7 both}
+.voa .asa-posterior{transform-box:fill-box;transform-origin:0% 0%;animation:atraso .38s linear 1.27s 7 both}
+.voa .miolo{animation:corpo .38s linear 1.2s 7}
+@keyframes voa{
+  0%{opacity:0;transform:translate(0,14px) rotate(0)}
+  10%{opacity:1}
+  30%{transform:translate(-26px,-13vh) rotate(-9deg)}
+  55%{transform:translate(14px,-27vh) rotate(6deg)}
+  78%{opacity:.9;transform:translate(-6px,-39vh) rotate(-4deg)}
+  100%{opacity:0;transform:translate(22px,-52vh) rotate(8deg)}}
+@keyframes sobe-alto{0%{transform:scale(.72)}20%{transform:scale(.94)}100%{transform:scale(1.06)}}
+@keyframes sombra-sobe{
+  0%{opacity:0;transform:translate(2px,4px) scale(.72)}
+  15%{opacity:.28;transform:translate(10px,16px) scale(.94)}
+  100%{opacity:.05;transform:translate(36px,64px) scale(.86)}}
+@keyframes bate-d{
+  0%,100%{transform:rotateY(56deg) rotateZ(-3deg)}
+  30%{transform:rotateY(6deg) rotateZ(2deg)}}
+@keyframes bate-e{
+  0%,100%{transform:rotateY(-56deg) rotateZ(3deg)}
+  30%{transform:rotateY(-6deg) rotateZ(-2deg)}}
+@keyframes atraso{
+  0%,100%{transform:rotate(4deg)}
+  30%{transform:rotate(0deg)}}
+@keyframes corpo{
+  0%,100%{transform:translateY(1px)}
+  30%{transform:translateY(-2px)}}
+
+/* SVG da borboleta: todas as cores via tokens */
+.bf-a1{stop-color:var(--cor-borboleta-anterior-1)}.bf-a2{stop-color:var(--cor-borboleta-anterior-2)}
+.bf-a3{stop-color:var(--cor-borboleta-anterior-3)}.bf-a4{stop-color:var(--cor-borboleta-anterior-4)}
+.bf-p1{stop-color:var(--cor-borboleta-posterior-1)}.bf-p2{stop-color:var(--cor-borboleta-posterior-2)}
+.bf-p3{stop-color:var(--cor-borboleta-posterior-3)}.bf-p4{stop-color:var(--cor-borboleta-posterior-4)}
+.bf-o1{stop-color:var(--cor-borboleta-ouro-1)}.bf-o2{stop-color:var(--cor-borboleta-ouro-2)}
+.bf-o3{stop-color:var(--cor-borboleta-ouro-3)}.bf-o4{stop-color:var(--cor-borboleta-ouro-4)}
+.bf-b1{stop-color:var(--cor-borboleta-borda-1)}.bf-b2{stop-color:var(--cor-borboleta-borda-2)}
+.bf-c1{stop-color:var(--cor-borboleta-corpo-1)}.bf-c2{stop-color:var(--cor-borboleta-corpo-2)}
+.bf-tracejado{stroke:var(--cor-borboleta-tracejado)}
+.bf-reflexo{stroke:var(--cor-borboleta-reflexo)}
+.bf-veias{stroke:var(--cor-borboleta-veia)}
+.bf-pontos{fill:var(--cor-borboleta-ponto)}
+.bf-ouro{fill:var(--cor-borboleta-ocelo)}
+.bf-olho{fill:var(--cor-borboleta-olho)}
+.bf-antena{stroke:var(--cor-borboleta-antena)}
+.bf-ponta{fill:var(--cor-borboleta-ouro-3)}
+.bf-listra{stroke:var(--cor-borboleta-listra)}
+.bf-brilho{fill:var(--cor-borboleta-brilho)}
+.bf-pelos{stroke:var(--cor-borboleta-borda-2)}
+
+/* conteúdo sobe como um cartão saindo do envelope */
+.site{position:relative}
+.abrindo .site{animation:sobe 1.1s var(--curva-sobe) 2.8s both}
+@keyframes sobe{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.fechado:not(.abrindo) .site{visibility:hidden}
+
+@media (min-width:900px){
+  .env .lacre{width:var(--lacre-tam-desktop);height:var(--lacre-tam-desktop)}
+  .toque{top:calc(50% + var(--lacre-tam-desktop) / 2 + 2.5vw - 9px)}
+}

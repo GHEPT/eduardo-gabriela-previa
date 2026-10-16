@@ -1,0 +1,20 @@
+/* painel de testes (?dev=1 com CONFIG.demo): discreto, canto inferior esquerdo */
+.dev{position:fixed;z-index:70;left:10px;bottom:calc(10px + env(safe-area-inset-bottom));max-width:min(320px,calc(100vw - 20px));
+  font-family:var(--fonte-serif);font-size:14px;color:var(--cor-texto);line-height:1.35}
+.dev-alterna{background:rgba(var(--rgb-campo),.94);border:0;color:var(--cor-texto-suave);
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:6px 10px;cursor:pointer}
+.dev-corpo{margin-bottom:6px;padding:12px;background:rgba(var(--rgb-fundo),.97);display:grid;gap:8px;max-height:70vh;overflow:auto}
+.dev-corpo[hidden]{display:none}
+.dev-linha{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.dev select,.dev button,.dev input{font-size:13px}
+.dev select{padding:4px 6px;background:var(--cor-fundo);border:1px solid var(--cor-linha)}
+.dev-titulo{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cor-texto-suave)}
+.dev-foto{display:grid;gap:2px}
+.dev-foto input[type=file]{max-width:200px}
+.dev-pos{display:flex;align-items:center;gap:6px;color:var(--cor-texto-suave)}
+.dev-pos input{flex:1}
+.dev-pos-saida{font-size:12px;color:var(--cor-texto-suave);word-break:break-all}
+.dev-pos-saida:empty{display:none}
+.dev-acoes{display:flex;gap:8px;flex-wrap:wrap}
+.dev-acoes button{background:var(--cor-destaque);color:var(--cor-sobre-destaque);border:0;padding:7px 10px;cursor:pointer}
+.dev textarea{width:100%;font-family:var(--fonte-serif);font-size:12px;background:var(--cor-fundo);border:1px solid var(--cor-filete);padding:6px}

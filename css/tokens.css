@@ -1,0 +1,139 @@
+/* =====================================================================
+   tokens.css: camada SEMÂNTICA + tokens não-cromáticos
+   ---------------------------------------------------------------------
+   Duas camadas de cor:
+     1) PRIMITIVAS (--p-*)  → definidas por paleta em css/paletas.css
+     2) SEMÂNTICAS (--cor-*, --rgb-*, --lacre-*) → aqui; dizem ONDE cada
+        primitiva é usada. O resto do CSS/JS só usa as semânticas.
+   Regra do projeto: nenhuma cor literal (hex/rgb) fora deste arquivo e
+   de paletas.css. Confira com:  npm run lint:cores
+   ===================================================================== */
+:root{
+  /* ---------- Papel, texto e campos ---------------------------------- */
+  --cor-fundo:              var(--p-papel);          /* fundo da página */
+  --cor-texto:              var(--p-tinta);          /* títulos, números */
+  --cor-texto-suave:        var(--p-tinta-media);    /* textos secundários, caps */
+  --cor-texto-pendente:     var(--p-tinta-clara);    /* "… pendente" */
+  --cor-placeholder:        var(--p-tinta-placeholder);
+  --cor-linha:              var(--p-linha);          /* linhas de campo, linha do tempo */
+  --cor-filete:             var(--p-filete);
+  --cor-destaque:           var(--p-profundo);       /* botão, coração, links, foco */
+  --cor-destaque-hover:     var(--p-profundo-hover);
+  --cor-sobre-destaque:     var(--p-sobre-profundo); /* texto do botão */
+  --cor-acento:             var(--p-ouro);           /* pontos, & chapado */
+  --cor-erro:               var(--p-erro);
+  --cor-desabilitado:       var(--p-desab);
+  --cor-desabilitado-texto: var(--p-desab-tinta);
+  --cor-fundo-secao-programacao: var(--p-campo);
+  --cor-fundo-secao-presentes:   var(--p-campo-2);
+  --cor-fundo-caixa:        var(--p-campo);          /* caixa de estado do RSVP */
+  --rgb-campo:              var(--p-campo-rgb);      /* LGPD, selo demo (com alfa) */
+  --rgb-destaque:           var(--p-profundo-rgb);   /* sublinhado de link (com alfa) */
+  --rgb-fundo:              var(--p-papel-rgb);      /* botão de música (com alfa) */
+  --cor-tema-navegador:     var(--p-papel);          /* <meta name=theme-color> com o site aberto */
+  --cor-tema-envelope:      var(--p-env-cima);       /* <meta name=theme-color> com o envelope fechado */
+
+  /* foil dourado (hot-stamping do "&") */
+  --cor-foil-1: var(--p-foil-1); --cor-foil-2: var(--p-foil-2); --cor-foil-3: var(--p-foil-3);
+  --cor-foil-4: var(--p-foil-4); --cor-foil-5: var(--p-foil-5);
+  --foil: linear-gradient(115deg,var(--cor-foil-1) 0%,var(--cor-foil-2) 32%,var(--cor-foil-3) 52%,var(--cor-foil-4) 74%,var(--cor-foil-5) 100%); /* taste-skill-ignore: hot-stamping dourado pedido pelo casal */
+
+  /* ---------- Envelope ----------------------------------------------- */
+  --cor-mesa:               var(--p-papel-mesa);     /* "mesa" atrás do envelope */
+  --cor-envelope:           var(--p-env-baixo);      /* aba de baixo */
+  --cor-envelope-claro:     var(--p-env-cima);       /* aba de cima (mais luz) */
+  --cor-envelope-medio:     var(--p-env-esq);        /* aba esquerda */
+  --cor-envelope-sombra:    var(--p-env-dir);        /* aba direita (menos luz) */
+  --cor-envelope-texto:     var(--p-env-tinta);      /* nomes/data em relevo seco */
+  --cor-envelope-realce:    var(--p-env-realce);     /* "&" no envelope */
+  --cor-toque:              var(--p-sobre-profundo); /* "toque para abrir", claro sobre envelope escuro */
+  --cor-aba-sombreamento:   var(--p-aba-sombra);     /* escurece a aba ao virar */
+  --cor-forro:              var(--p-forro);          /* papel de dentro */
+  --cor-forro-verso:        var(--p-forro-verso);    /* lado de dentro da aba */
+  --rgb-forro-oclusao:      var(--p-forro-oclusao-rgb);
+  --rgb-forro-verso:        var(--p-forro-verso-rgb);
+  --rgb-sombra:             var(--p-sombra-rgb);     /* sombras/vincos/relevo seco (com alfa) */
+  --rgb-sombra-envelope:    var(--p-env-sombra-rgb); /* envelope sobre a mesa */
+  --rgb-luz:                var(--p-luz-rgb);        /* realces das bordas */
+  --rgb-branco:             255,255,255;             /* luz pura (neutra, todas as paletas) */
+  --aba-verso-sombra:       var(--p-verso-sombra);   /* opacidade do sombreado do verso */
+  --aba-verso-clareia:      var(--p-verso-clareia);  /* início do clarear do verso */
+
+  /* ---------- Lacre de cera (imagens são só máscaras neutras) --------- */
+  --cor-lacre-claro:        var(--p-cera-1);
+  --cor-lacre-medio:        var(--p-cera-2);
+  --cor-lacre-escuro:       var(--p-cera-3);
+  --cor-lacre-disco-1:      var(--p-cera-disco-1);
+  --cor-lacre-disco-2:      var(--p-cera-disco-2);
+  --cor-lacre-anel:         var(--p-cera-anel);
+  --lacre-letra:            var(--p-cera-letra);     /* cor OU gradiente das letras */
+  --cor-lacre-sombreado:    var(--p-cera-sombreado); /* tom das partes em sombra */
+  --cor-lacre-brilho:       var(--p-cera-brilho);    /* tom do brilho especular */
+  --lacre-brilho-forca:     var(--p-cera-brilho-forca);
+  --rgb-lacre-sombra:       var(--p-cera-sombra-rgb);/* sombra do lacre no papel */
+
+  /* ---------- Borboleta (SVG inline usa estas variáveis) ------------- */
+  --cor-borboleta-anterior-1: var(--p-asa-1); --cor-borboleta-anterior-2: var(--p-asa-2);
+  --cor-borboleta-anterior-3: var(--p-asa-3); --cor-borboleta-anterior-4: var(--p-asa-4);
+  --cor-borboleta-posterior-1: var(--p-asa-pos-1); --cor-borboleta-posterior-2: var(--p-asa-pos-2);
+  --cor-borboleta-posterior-3: var(--p-asa-pos-3); --cor-borboleta-posterior-4: var(--p-asa-pos-4);
+  --cor-borboleta-borda-1:  var(--p-asa-borda-1);
+  --cor-borboleta-borda-2:  var(--p-asa-borda-2);
+  --cor-borboleta-veia:     var(--p-asa-veia);
+  --cor-borboleta-ponto:    var(--p-asa-ponto);
+  --cor-borboleta-tracejado:var(--p-asa-tracejado);
+  --cor-borboleta-ocelo:    var(--p-asa-ocelo);      /* pontos dourados e ocelo */
+  --cor-borboleta-ouro-1:   var(--p-asa-ouro-1); --cor-borboleta-ouro-2: var(--p-asa-ouro-2);
+  --cor-borboleta-ouro-3:   var(--p-asa-ouro-3); --cor-borboleta-ouro-4: var(--p-asa-ouro-4);
+  --cor-borboleta-corpo-1:  var(--p-corpo-1);
+  --cor-borboleta-corpo-2:  var(--p-corpo-2);
+  --cor-borboleta-listra:   var(--p-corpo-listra);
+  --cor-borboleta-brilho:   var(--p-corpo-brilho);
+  --cor-borboleta-antena:   var(--p-antena);
+  --cor-borboleta-olho:     var(--p-olho);
+  --cor-borboleta-reflexo:  rgb(var(--rgb-branco));
+
+  /* ---------- Fotos -------------------------------------------------- */
+  --cor-foto-vazia-1:       var(--p-foto-1);         /* fundo enquanto não há foto */
+  --cor-foto-vazia-2:       var(--p-foto-2);
+  --cor-foto-vazia-3:       var(--p-foto-3);
+  --cor-foto-rotulo:        var(--p-foto-rotulo);
+  --cor-foto-numero:        rgb(var(--rgb-branco));  /* 11 · 12 · 26 sobre a foto */
+  --rgb-veu-foto:           16,20,28;                /* véu neutro (não muda com a paleta) */
+
+  /* ---------- Tipografia --------------------------------------------- */
+  --fonte-serif: "Eyesome","Cormorant Garamond","Cormorant",Garamond,"EB Garamond","Times New Roman",serif;
+  --fonte-script: "Brotherhood Script","Faith","Glamour","Blosta Script","Pinyon Script","Great Vibes","Snell Roundhand","Apple Chancery",cursive;
+  --texto-base: 18px;           /* corpo (19px no desktop) */
+  --texto-caps: 13px;           /* caixa-alta espaçada */
+  --caps-espaco: .24em;
+  --texto-p: 16px; --texto-m: 17px; --texto-g: 19px; --texto-campo: 20px;
+  --titulo-secao: clamp(46px,13vw,64px);
+  --titulo-capa: clamp(40px,11.6vw,76px);
+
+  /* ---------- Espaçamento / forma ------------------------------------ */
+  --largura-miolo: 560px;
+  --secao-y: 88px;  --secao-y-desktop: 120px;  --secao-x: 24px;
+  --espaco-1: 4px; --espaco-2: 8px; --espaco-3: 14px; --espaco-4: 22px; --espaco-5: 40px;
+  --raio: 0;                    /* papelaria: cantos retos */
+  --lacre-tam: 157px; --lacre-tam-desktop: 186px; --lacre-tam-rodape: 86px;
+
+  /* ---------- Sombras (geometria; a cor vem das --rgb-*) ------------- */
+  --sombra-aba: drop-shadow(3px 5px 6px rgba(var(--rgb-sombra),.34)) drop-shadow(.8px 1.2px .7px rgba(var(--rgb-sombra),.5)); /* taste-skill-ignore: sombra física das abas de papel */
+  --sombra-envelope: 0 2px 3px rgba(var(--rgb-sombra-envelope),.18),0 22px 50px rgba(var(--rgb-sombra-envelope),.26); /* taste-skill-ignore: envelope sobre a mesa */
+
+  /* ---------- Movimento ---------------------------------------------- */
+  --curva-abrir: cubic-bezier(.55,.05,.3,1);   /* referência do início; a curva viva está nos keyframes */
+  --curva-suave: cubic-bezier(.3,0,.2,1);      /* lacre, recuo */
+  --curva-voo: cubic-bezier(.37,0,.3,1);       /* borboleta */
+  --curva-sobe: cubic-bezier(.2,.7,.2,1);      /* cartão sobe */
+  --dur-aba: 5.4s;
+  --dur-revelar: .9s;
+
+  /* ---------- Texturas (neutras, cinza; a cor vem do background-color) */
+  --textura-papel: url("../assets/texturas/papel.webp");
+  --textura-algodao: url("../assets/texturas/algodao.webp");
+  --textura-relevo: url("../assets/texturas/relevo.webp"); /* alto relevo seco, neutro */
+  --textura-tam: 256px 256px;   /* arquivo 512px exibido a 256px = nítido em 2x */
+  --grao: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .25 0 0 0 0 .25 0 0 0 0 .25 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+}

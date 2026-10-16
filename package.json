@@ -1,0 +1,22 @@
+{
+  "name": "eduardo-gabriela-convite",
+  "version": "0.5.2",
+  "private": true,
+  "description": "Convite interativo (site estático) do casamento de Eduardo & Gabriela: 11.12.2026, Cosmópolis-SP",
+  "type": "module",
+  "scripts": {
+    "serve": "npx --yes serve -l 3000 .",
+    "shots": "node tests/capturas.mjs",
+    "shots:paletas": "node tests/capturas.mjs --paletas",
+    "lint": "npm run lint:cores && npm run lint-taste",
+    "lint:cores": "node scripts/checar-cores.mjs",
+    "lint-taste": "node tools/design-skills/taste-skill/scripts/lint.mjs index.html css js",
+    "inspect": "node --experimental-websocket tools/design-skills/taste-skill/scripts/inspect.mjs http://localhost:3000/#capa --allow numbering,micro-label,eyebrow,gradient,gradient-text,text-shadow"
+  },
+  "devDependencies": {
+    "playwright": "^1.48.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

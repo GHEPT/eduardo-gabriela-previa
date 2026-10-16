@@ -1,0 +1,35 @@
+/* =====================================================================
+   base.css: reset, tipografia e utilitários (só tokens, sem cor literal)
+   ===================================================================== */
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--cor-fundo);-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;scroll-behavior:smooth}
+html.fechado,html.fechado body{overflow:hidden;height:100%}
+/* envelope fechado: o fundo do documento vira a cor do envelope, para que qualquer
+   faixa exposta (barra de status, barra do Safari, "elástico" da rolagem) não fique marfim */
+html.fechado,html.fechado body{background-color:var(--cor-envelope-claro);background-image:none}
+body{color:var(--cor-texto);font-family:var(--fonte-serif);font-weight:400;font-size:var(--texto-base);line-height:1.55;
+  background-color:var(--cor-fundo);background-image:var(--textura-papel);background-size:var(--textura-tam);background-blend-mode:soft-light;
+  -webkit-font-smoothing:antialiased;font-variant-numeric:lining-nums;font-feature-settings:"lnum"}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit;touch-action:manipulation}
+:focus-visible{outline:1px solid var(--cor-destaque);outline-offset:4px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.caps{font-size:var(--texto-caps);font-weight:500;letter-spacing:var(--caps-espaco);text-transform:uppercase;color:var(--cor-texto-suave)}
+@font-face{font-family:"Brotherhood Script";src:url("../assets/fontes/Brotherhood_Script.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Faith";src:url("../assets/fontes/Faith.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Glamour";src:url("../assets/fontes/Glamour.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+.script{font-family:var(--fonte-script);font-weight:400;font-style:normal;letter-spacing:0;font-feature-settings:"liga","calt"}
+.amp{color:var(--cor-acento)}
+@supports ((-webkit-background-clip:text) or (background-clip:text)){ /* taste-skill-ignore: & em foil */
+  .amp{background:var(--foil);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent} /* taste-skill-ignore: & em dourado foil, detalhe de identidade */
+}
+
+/* revelação ao rolar */
+.js .rev{opacity:0;transform:translateY(12px);transition:opacity var(--dur-revelar) ease,transform var(--dur-revelar) ease}
+.js .rev.vis{opacity:1;transform:none}
+
+@media (min-width:900px){ body{font-size:19px} }
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .rev{opacity:1;transform:none;transition:none}
+}

@@ -1,0 +1,23 @@
+# dependências e saídas de teste
+node_modules/
+tests/capturas/
+.taste-skill/
+*.log
+
+# referências de terceiros (Pinterest, moodboards, vídeo): NÃO publicar, o repositório é público
+docs/referencias/*
+!docs/referencias/README.md
+
+# Brotherhood Script, Faith e Glamour: licença só para uso pessoal. Os arquivos não entram no repositório público.
+assets/fontes/*.ttf
+assets/fontes/*.otf
+
+# fotos originais (com EXIF/GPS) nunca entram no repositório: só as tratadas em assets/fotos/
+originais/
+*.heic
+*.HEIC
+
+# sistema
+.DS_Store
+Thumbs.db
+.vscode/

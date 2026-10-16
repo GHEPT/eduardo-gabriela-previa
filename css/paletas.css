@@ -1,0 +1,376 @@
+/* =====================================================================
+   paletas.css: camada PRIMITIVA (--p-*), uma por [data-paleta]
+   ---------------------------------------------------------------------
+   Trocar a paleta:  <html data-paleta="malva">  (ou ?paleta=malva em demo)
+   Toda paleta precisa definir TODAS as variáveis --p-* do bloco padrão.
+   Nova paleta: python3 scripts/nova-paleta.py minha.json  → cole aqui.
+   Detalhes: docs/DESIGN-SYSTEM.md
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   AZUL E AMARELO: padrão
+   Cores confirmadas: papel #F2F0A2, azul #08388C, azulado #AACAF2, ouro #FFC508.
+   Os outros tons desta paleta são misturas desses quatro, para contraste e relevo.
+   --------------------------------------------------------------------- */
+:root,
+[data-paleta="azul-amarelo"]{
+  /* papel e tinta */
+  --p-papel:#F2F0A2;            --p-papel-rgb:242,240,162;
+  --p-papel-mesa:#E9E488;       /* mesa atrás do envelope */
+  --p-campo:#AACAF2;            --p-campo-rgb:170,202,242;  /* programação */
+  --p-campo-2:#FFC508;          /* presentes */
+  --p-tinta:#08388C;
+  --p-tinta-media:#2C58A2;
+  --p-tinta-clara:#3561A9;
+  --p-tinta-placeholder:#5C84C1;
+  --p-linha:#4972B5;
+  --p-filete:#BCD4DE;
+  --p-profundo:#08388C;         --p-profundo-rgb:8,56,140;
+  --p-profundo-hover:#062C6D;
+  --p-sobre-profundo:#F2F0A2;
+  --p-erro:#9A3B2E;
+  --p-desab:#D2DFC6;            --p-desab-tinta:#2C58A2;
+  /* acento */
+  --p-ouro:#FFC508;
+  --p-foil-1:#CF9405; --p-foil-2:#FFDD70; --p-foil-3:#FFC508; --p-foil-4:#FFD235; --p-foil-5:#B68004;
+  /* envelope no azul escuro, as quatro abas na mesma cor: o vinco é sombra, não outro tom */
+  --p-env-cima:#08388C; --p-env-baixo:#08388C; --p-env-esq:#08388C; --p-env-dir:#08388C;
+  --p-env-tinta:#F2F0A2;        --p-env-realce:#FFC508;
+  --p-aba-sombra:#041F4D;
+  --p-forro:#F2F0A2;            --p-forro-verso:#F7F6C7;
+  --p-forro-oclusao-rgb:191,185,119;
+  --p-forro-verso-rgb:222,218,144;
+  --p-sombra-rgb:4,25,63;       --p-env-sombra-rgb:4,28,70;
+  --p-luz-rgb:250,252,255;
+  --p-verso-sombra:.22;         --p-verso-clareia:.26;
+  /* lacre no ouro, letras em foil */
+  --p-cera-1:#FFD54D; --p-cera-2:#FFC508; --p-cera-3:#926703;
+  --p-cera-disco-1:#EAB006; --p-cera-disco-2:#CC9505;
+  --p-cera-anel:#996F04;
+  --p-cera-letra:linear-gradient(155deg,var(--p-foil-5) 0%,var(--p-foil-2) 28%,var(--p-foil-1) 52%,var(--p-foil-4) 74%,var(--p-foil-3) 100%); /* taste-skill-ignore: letras do lacre em foil */
+  --p-cera-sombreado:#2E2301;   --p-cera-brilho:#FFEFBA;  --p-cera-brilho-forca:.82;
+  --p-cera-sombra-rgb:46,35,1;
+  /* borboleta: asa no amarelo vivo, desenho no azul vivo */
+  --p-asa-1:#FFD13D; --p-asa-2:#FFC508; --p-asa-3:#FFC508; --p-asa-4:#EBB400;
+  --p-asa-pos-1:#FFD13D; --p-asa-pos-2:#FFC508; --p-asa-pos-3:#FFC508; --p-asa-pos-4:#EBB400;
+  --p-asa-borda-1:#08388C; --p-asa-borda-2:#08388C;
+  --p-asa-veia:#08388C; --p-asa-ponto:#08388C; --p-asa-tracejado:#08388C; --p-asa-ocelo:#08388C;
+  --p-asa-ouro-1:#08388C; --p-asa-ouro-2:#08388C; --p-asa-ouro-3:#08388C; --p-asa-ouro-4:#08388C;
+  --p-corpo-1:#062E74; --p-corpo-2:#08388C; --p-corpo-listra:#FFC508; --p-corpo-brilho:#FFD13D;
+  --p-antena:#08388C; --p-olho:#FFC508;
+  /* fotos (fundo enquanto não carregam) */
+  --p-foto-1:#82A6D8; --p-foto-2:#7197CE; --p-foto-3:#B1CEF3; --p-foto-rotulo:#F8F8D0;
+}
+
+/* ---------------------------------------------------------------------
+   MALVA: valores da v5.1 (antes da troca para azul e amarelo)
+   Moodboard: docs/referencias/moodboard-malva.jpg
+   --------------------------------------------------------------------- */
+[data-paleta="malva"]{
+  --p-papel:#F5F0E8;            --p-papel-rgb:245,240,232;
+  --p-papel-mesa:#E9E1E2;
+  --p-campo:#ECE3E6;            --p-campo-rgb:236,227,230;
+  --p-campo-2:#ECE3E6;
+  --p-tinta:#4A2F42;
+  --p-tinta-media:#6E4E62;
+  --p-tinta-clara:#8E6F82;
+  --p-tinta-placeholder:#9C8794;
+  --p-linha:#8C6A7E;
+  --p-filete:#CDBFC7;
+  --p-profundo:#5B2A4A;         --p-profundo-rgb:91,42,74;
+  --p-profundo-hover:#4C2240;
+  --p-sobre-profundo:#F7F1EC;
+  --p-erro:#8E2F45;
+  --p-desab:#DCCFD5;            --p-desab-tinta:#7E6574;
+  --p-ouro:#A8874F;
+  --p-foil-1:#93713F; --p-foil-2:#C6A66B; --p-foil-3:#A3824C; --p-foil-4:#BE9C60; --p-foil-5:#8C6B3B;
+  --p-env-cima:#B99DAD; --p-env-baixo:#B094A4; --p-env-esq:#A88A9B; --p-env-dir:#A28495;
+  --p-env-tinta:#F4ECEF;        --p-env-realce:#E6D3A8;
+  --p-aba-sombra:#2E1024;
+  --p-forro:#E7D9DF;            --p-forro-verso:#EDE1E6;
+  --p-forro-oclusao-rgb:70,30,55;
+  --p-forro-verso-rgb:120,70,100;
+  --p-sombra-rgb:45,16,34;      --p-env-sombra-rgb:50,20,40;
+  --p-luz-rgb:255,246,250;
+  --p-verso-sombra:.35;         --p-verso-clareia:.45;
+  /* lacre berinjela com letras em foil dourado */
+  --p-cera-1:#8A4872; --p-cera-2:#62294F; --p-cera-3:#3A1530;
+  --p-cera-disco-1:#5E2A4C; --p-cera-disco-2:#47193A;
+  --p-cera-anel:#6E3560;
+  --p-cera-letra:linear-gradient(135deg,#93713F 0%,#D2B27A 32%,#A3824C 52%,#C9A86C 74%,#8C6B3B 100%); /* taste-skill-ignore: letras do lacre em foil */
+  --p-cera-sombreado:#1E0817;   --p-cera-brilho:#FFE8F3;  --p-cera-brilho-forca:1;
+  --p-cera-sombra-rgb:42,15,33;
+  --p-asa-1:#F6E6EE; --p-asa-2:#E4C3D3; --p-asa-3:#C597AF; --p-asa-4:#8E5E7B;
+  --p-asa-pos-1:#F4E2EA; --p-asa-pos-2:#DDB6C9; --p-asa-pos-3:#B98AA3; --p-asa-pos-4:#835372;
+  --p-asa-borda-1:#7A4868; --p-asa-borda-2:#4A2240;
+  --p-asa-veia:#6E4260; --p-asa-ponto:#F7ECF1; --p-asa-tracejado:#D9B98A; --p-asa-ocelo:#C9A66B;
+  --p-asa-ouro-1:#93713F; --p-asa-ouro-2:#D2B27A; --p-asa-ouro-3:#A3824C; --p-asa-ouro-4:#C9A86C;
+  --p-corpo-1:#2E1426; --p-corpo-2:#6B3B5C; --p-corpo-listra:#B48CA6; --p-corpo-brilho:#C9A6BD;
+  --p-antena:#3A1A30; --p-olho:#5B2A4A;
+  --p-foto-1:#9F8B97; --p-foto-2:#93808C; --p-foto-3:#A4919C; --p-foto-rotulo:#F5EEF1;
+}
+
+/* ---------------------------------------------------------------------
+   MARROM CAFÉ: gerada por scripts/nova-paleta.py (ajuste à mão)
+   envelope taupe/moca, forro latte, lacre chocolate, texto espresso, acento dourado
+   Moodboard: docs/referencias/moodboard-marrom-cafe.jpg
+   --------------------------------------------------------------------- */
+[data-paleta="marrom-cafe"]{
+  --p-papel:#F4EFE6;
+  --p-papel-rgb:244,239,230;
+  --p-papel-mesa:#EDE7DD;
+  --p-campo:#E7E1D6;
+  --p-campo-rgb:231,225,214;
+  --p-campo-2:#EFE6D8;
+  --p-tinta:#2B1C13;
+  --p-tinta-media:#5D5148;
+  --p-tinta-clara:#7F756C;
+  --p-tinta-placeholder:#90867C;
+  --p-linha:#7C6957;
+  --p-filete:#CABFB2;
+  --p-profundo:#452411;
+  --p-profundo-rgb:69,36,17;
+  --p-profundo-hover:#391E0E;
+  --p-sobre-profundo:#F7F4EE;
+  --p-erro:#9A3B2E;
+  --p-desab:#DDD5C9;
+  --p-desab-tinta:#675B52;
+  --p-ouro:#B08A4E;
+  --p-foil-1:#997844;
+  --p-foil-2:#C8AD83;
+  --p-foil-3:#B08A4E;
+  --p-foil-4:#C4A77A;
+  --p-foil-5:#907140;
+  --p-env-cima:#92816E;
+  --p-env-baixo:#8A7763;
+  --p-env-esq:#84725F;
+  --p-env-dir:#7F6D5B;
+  --p-env-tinta:#F8F5F0;
+  --p-env-realce:#D4BF9E;
+  --p-aba-sombra:#1C120C;
+  --p-forro:#E8DCC6;
+  --p-forro-verso:#EBE1CF;
+  --p-forro-oclusao-rgb:104,99,89;
+  --p-forro-verso-rgb:128,121,109;
+  --p-sombra-rgb:24,15,10;
+  --p-env-sombra-rgb:24,15,10;
+  --p-luz-rgb:253,253,251;
+  --p-verso-sombra:.22;
+  --p-verso-clareia:.26;
+  --p-cera-1:#866859;
+  --p-cera-2:#5E3622;
+  --p-cera-3:#382014;
+  --p-cera-disco-1:#5B3421;
+  --p-cera-disco-2:#4E2D1C;
+  --p-cera-anel:#583320;
+  --p-cera-letra:#422618;
+  --p-cera-sombreado:#0E0805;
+  --p-cera-brilho:#E7E1DE;
+  --p-cera-brilho-forca:.62;
+  --p-cera-sombra-rgb:24,15,10;
+  --p-asa-1:#F6F3F0;
+  --p-asa-2:#D9CEC0;
+  --p-asa-3:#B39C82;
+  --p-asa-4:#746554;
+  --p-asa-pos-1:#F8F6F4;
+  --p-asa-pos-2:#DBD0C4;
+  --p-asa-pos-3:#B39C82;
+  --p-asa-pos-4:#6F6151;
+  --p-asa-borda-1:#4C3F33;
+  --p-asa-borda-2:#372C23;
+  --p-asa-veia:#625648;
+  --p-asa-ponto:#FAF7F2;
+  --p-asa-tracejado:#CCB38C;
+  --p-asa-ocelo:#C1A475;
+  --p-asa-ouro-1:#997844;
+  --p-asa-ouro-2:#CCB38C;
+  --p-asa-ouro-3:#B08A4E;
+  --p-asa-ouro-4:#C0A171;
+  --p-corpo-1:#1C120C;
+  --p-corpo-2:#614F3F;
+  --p-corpo-listra:#C0AD96;
+  --p-corpo-brilho:#D1C4B4;
+  --p-antena:#22160F;
+  --p-olho:#2B1C13;
+  --p-foto-1:#97999A;
+  --p-foto-2:#939699;
+  --p-foto-3:#969696;
+  --p-foto-rotulo:#FAF7F2;
+}
+
+/* ---------------------------------------------------------------------
+   VERDE E ROSA: gerada por scripts/nova-paleta.py (ajuste à mão)
+   envelope sálvia, forro rosa-blush, lacre vinho, texto verde profundo
+   Moodboard: docs/referencias/moodboard-verde-rosa.jpg
+   --------------------------------------------------------------------- */
+[data-paleta="verde-rosa"]{
+  --p-papel:#F6F1EA;
+  --p-papel-rgb:246,241,234;
+  --p-papel-mesa:#EFEBE2;
+  --p-campo:#E9E6DD;
+  --p-campo-rgb:233,230,221;
+  --p-campo-2:#F5E6DF;
+  --p-tinta:#2F3A24;
+  --p-tinta-media:#616856;
+  --p-tinta-clara:#838777;
+  --p-tinta-placeholder:#929687;
+  --p-linha:#7E896D;
+  --p-filete:#CCCDBD;
+  --p-profundo:#3E4A2A;
+  --p-profundo-rgb:62,74,42;
+  --p-profundo-hover:#333D22;
+  --p-sobre-profundo:#F9F5F0;
+  --p-erro:#9A3B2E;
+  --p-desab:#DFDDD1;
+  --p-desab-tinta:#6B715F;
+  --p-ouro:#B39368;
+  --p-foil-1:#9C805A;
+  --p-foil-2:#CAB395;
+  --p-foil-3:#B39368;
+  --p-foil-4:#C6AE8E;
+  --p-foil-5:#937955;
+  --p-env-cima:#949E83;
+  --p-env-baixo:#8C977A;
+  --p-env-esq:#869175;
+  --p-env-dir:#818B70;
+  --p-env-tinta:#FAF7F2;
+  --p-env-realce:#D5C4AC;
+  --p-aba-sombra:#1F2617;
+  --p-forro:#EBCDBF;
+  --p-forro-verso:#EED4C9;
+  --p-forro-oclusao-rgb:106,92,86;
+  --p-forro-verso-rgb:129,113,105;
+  --p-sombra-rgb:26,32,20;
+  --p-env-sombra-rgb:26,32,20;
+  --p-luz-rgb:254,253,252;
+  --p-verso-sombra:.22;
+  --p-verso-clareia:.26;
+  --p-cera-1:#92696F;
+  --p-cera-2:#6E373F;
+  --p-cera-3:#422126;
+  --p-cera-disco-1:#6B353D;
+  --p-cera-disco-2:#5B2E34;
+  --p-cera-anel:#67343B;
+  --p-cera-letra:#4D262C;
+  --p-cera-sombreado:#110809;
+  --p-cera-brilho:#E9E1E2;
+  --p-cera-brilho-forca:.62;
+  --p-cera-sombra-rgb:26,32,20;
+  --p-asa-1:#FAF4F2;
+  --p-asa-2:#EAD3CA;
+  --p-asa-3:#D5A796;
+  --p-asa-4:#8A6D62;
+  --p-asa-pos-1:#FBF7F6;
+  --p-asa-pos-2:#EBD6CE;
+  --p-asa-pos-3:#D5A796;
+  --p-asa-pos-4:#84685D;
+  --p-asa-borda-1:#594C3F;
+  --p-asa-borda-2:#403A2E;
+  --p-asa-veia:#755C52;
+  --p-asa-ponto:#FAF8F4;
+  --p-asa-tracejado:#CEB99D;
+  --p-asa-ocelo:#C4AB89;
+  --p-asa-ouro-1:#9C805A;
+  --p-asa-ouro-2:#CEB99D;
+  --p-asa-ouro-3:#B39368;
+  --p-asa-ouro-4:#C2A986;
+  --p-corpo-1:#1F2617;
+  --p-corpo-2:#716652;
+  --p-corpo-listra:#DCB6A7;
+  --p-corpo-brilho:#E6CAC0;
+  --p-antena:#262E1D;
+  --p-olho:#2F3A24;
+  --p-foto-1:#979E9E;
+  --p-foto-2:#93999C;
+  --p-foto-3:#979E9B;
+  --p-foto-rotulo:#FAF8F4;
+}
+
+/* ---------------------------------------------------------------------
+   BORDÔ: gerada por scripts/nova-paleta.py (ajuste à mão)
+   envelope vinho, forro creme, lacre dourado, texto vinho escuro
+   Moodboard: docs/referencias/moodboard-bordo.jpg
+   --------------------------------------------------------------------- */
+[data-paleta="bordo"]{
+  --p-papel:#F6F2EC;
+  --p-papel-rgb:246,242,236;
+  --p-papel-mesa:#EDE4DF;
+  --p-campo:#E7DAD6;
+  --p-campo-rgb:231,218,214;
+  --p-campo-2:#F1E8DC;
+  --p-tinta:#3D1015;
+  --p-tinta-media:#6B484B;
+  --p-tinta-clara:#8B6F6F;
+  --p-tinta-placeholder:#9A8180;
+  --p-linha:#712A33;
+  --p-filete:#C4A4A4;
+  --p-profundo:#572028;
+  --p-profundo-rgb:87,32,40;
+  --p-profundo-hover:#471A21;
+  --p-sobre-profundo:#F9F6F2;
+  --p-erro:#9A3B2E;
+  --p-desab:#DBC7C4;
+  --p-desab-tinta:#745456;
+  --p-ouro:#A8885A;
+  --p-foil-1:#92764E;
+  --p-foil-2:#C2AC8C;
+  --p-foil-3:#A8885A;
+  --p-foil-4:#BEA683;
+  --p-foil-5:#8A704A;
+  --p-env-cima:#833D46;
+  --p-env-baixo:#7A2E38;
+  --p-env-esq:#752C36;
+  --p-env-dir:#702A34;
+  --p-env-tinta:#FAF7F4;
+  --p-env-realce:#CFBEA4;
+  --p-aba-sombra:#280A0E;
+  --p-forro:#EDE5D8;
+  --p-forro-verso:#F0E9DE;
+  --p-forro-oclusao-rgb:107,103,97;
+  --p-forro-verso-rgb:130,126,119;
+  --p-sombra-rgb:34,9,12;
+  --p-env-sombra-rgb:34,9,12;
+  --p-luz-rgb:254,253,252;
+  --p-verso-sombra:.22;
+  --p-verso-clareia:.26;
+  --p-cera-1:#C4A77D;
+  --p-cera-2:#B08A52;
+  --p-cera-3:#6A5331;
+  --p-cera-disco-1:#AB8650;
+  --p-cera-disco-2:#927344;
+  --p-cera-anel:#A5824D;
+  --p-cera-letra:#7B6139;
+  --p-cera-sombreado:#1A150C;
+  --p-cera-brilho:#F3EDE5;
+  --p-cera-brilho-forca:.62;
+  --p-cera-sombra-rgb:34,9,12;
+  --p-asa-1:#FAF8F4;
+  --p-asa-2:#ECE2D2;
+  --p-asa-3:#D9C6A6;
+  --p-asa-4:#8D816C;
+  --p-asa-pos-1:#FCFAF7;
+  --p-asa-pos-2:#EDE4D5;
+  --p-asa-pos-3:#D9C6A6;
+  --p-asa-pos-4:#877B67;
+  --p-asa-borda-1:#5E4A40;
+  --p-asa-borda-2:#46302B;
+  --p-asa-veia:#776D5B;
+  --p-asa-ponto:#FAF8F6;
+  --p-asa-tracejado:#C6B294;
+  --p-asa-ocelo:#BBA27E;
+  --p-asa-ouro-1:#92764E;
+  --p-asa-ouro-2:#C6B294;
+  --p-asa-ouro-3:#A8885A;
+  --p-asa-ouro-4:#B9A07B;
+  --p-corpo-1:#280A0E;
+  --p-corpo-2:#7B594F;
+  --p-corpo-listra:#DFCFB4;
+  --p-corpo-brilho:#E8DDCA;
+  --p-antena:#310D11;
+  --p-olho:#3D1015;
+  --p-foto-1:#948B92;
+  --p-foto-2:#918F95;
+  --p-foto-3:#92858C;
+  --p-foto-rotulo:#FAF8F6;
+}
+
