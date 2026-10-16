@@ -20,13 +20,23 @@ mkdirSync(SAIDA, { recursive: true });
 // timers longos (4s) viram imediatos só no teste, para congelar quadros da abertura
 const STUB = '(()=>{const o=window.setTimeout;window.setTimeout=(f,t,...a)=>t>=2000?0:o(f,t,...a)})()';
 const congela = (pg, ms) => pg.evaluate((t) => document.getAnimations().forEach((a) => { a.pause(); a.currentTime = t; }), ms);
-const abreDeVez = (pg) => pg.evaluate(() => {
-  document.getAnimations().forEach((a) => { try { a.finish(); } catch (e) {} });
-  document.documentElement.classList.remove('fechado', 'abrindo');
-  document.getElementById('env').hidden = true;
-  document.querySelectorAll('.borboleta').forEach((n) => { n.hidden = true; });
-  document.querySelectorAll('.rev').forEach((n) => n.classList.add('vis'));
-});
+const abreDeVez = async (pg) => {
+  await pg.evaluate(() => {
+    document.getAnimations().forEach((a) => { try { a.finish(); } catch (e) {} });
+    document.documentElement.classList.remove('fechado', 'abrindo');
+    document.getElementById('env').hidden = true;
+    document.querySelectorAll('.borboleta').forEach((n) => { n.hidden = true; });
+    document.querySelectorAll('.rev').forEach((n) => n.classList.add('vis'));
+  });
+  await pg.waitForFunction(() => {
+    return document.documentElement.classList.contains('capa-foto')
+      || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }, null, { timeout: 2500 }).catch(() => {});
+  await pg.evaluate(() => {
+    document.documentElement.classList.add('capa-entra', 'capa-foto');
+    document.getAnimations().forEach((a) => { try { a.finish(); } catch (e) {} });
+  });
+};
 
 const browser = await chromium.launch(process.env.CHROME ? { executablePath: process.env.CHROME } : {});
 const erros = [];

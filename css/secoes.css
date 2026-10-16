@@ -72,6 +72,34 @@ html.capa-foto .num-a{animation:surge-amp var(--dur-nome) var(--curva-capa) calc
   html.capa-espera .janela .num,html.capa-foto .janela .num{animation:none;opacity:1}
   html.capa-espera .janela .vela,html.capa-foto .janela .vela{animation:none;opacity:0}
 }
+html.capa-espera .capa .linha span,
+html.capa-espera .contagem .bloco,
+html.capa-espera .contagem i{opacity:0;transform:translate3d(0,12px,0)}
+html.capa-espera .versiculo span,
+html.capa-espera .versiculo cite{opacity:0}
+html.capa-foto{
+  --fim-numero:calc(var(--dur-quadro) + var(--atraso-quadro) * 2 + var(--dur-nome));
+  --entra-cidade:calc(var(--fim-numero) + var(--atraso-nome));
+  --entra-contagem:calc(var(--entra-cidade) + var(--dur-nome) + var(--atraso-nome));
+  --entra-verso:calc(var(--entra-contagem) + var(--atraso-bloco) * 3 + var(--dur-nome) + var(--atraso-nome));
+  --entra-cite:calc(var(--entra-verso) + var(--atraso-nome));
+}
+html.capa-foto .capa .linha span{animation:sobe-nome var(--dur-nome) var(--curva-capa) var(--entra-cidade) both}
+html.capa-foto .bloco-d,html.capa-foto .contagem i:nth-of-type(1){animation:sobe-nome var(--dur-nome) var(--curva-capa) var(--entra-contagem) both}
+html.capa-foto .bloco-h,html.capa-foto .contagem i:nth-of-type(2){animation:sobe-nome var(--dur-nome) var(--curva-capa) calc(var(--entra-contagem) + var(--atraso-bloco)) both}
+html.capa-foto .bloco-m,html.capa-foto .contagem i:nth-of-type(3){animation:sobe-nome var(--dur-nome) var(--curva-capa) calc(var(--entra-contagem) + var(--atraso-bloco) * 2) both}
+html.capa-foto .bloco-s{animation:sobe-nome var(--dur-nome) var(--curva-capa) calc(var(--entra-contagem) + var(--atraso-bloco) * 3) both}
+html.capa-foto .versiculo span{animation:surge-amp var(--dur-revelar) var(--curva-capa) var(--entra-verso) both}
+html.capa-foto .versiculo cite{animation:surge-amp var(--dur-revelar) var(--curva-capa) var(--entra-cite) both}
+.contagem b.troca{animation:surge-amp var(--dur-digito) var(--curva-capa) both}
+@media (prefers-reduced-motion:reduce){
+  html.capa-espera .capa .linha span,html.capa-foto .capa .linha span,
+  html.capa-espera .contagem .bloco,html.capa-foto .contagem .bloco,
+  html.capa-espera .contagem i,html.capa-foto .contagem i,
+  html.capa-espera .versiculo span,html.capa-foto .versiculo span,
+  html.capa-espera .versiculo cite,html.capa-foto .versiculo cite,
+  .contagem b.troca{animation:none;opacity:1;transform:none}
+}
 .foto .rotulo{position:absolute;top:12px;left:0;right:0;font-style:italic;font-size:14px;line-height:1.25;color:var(--cor-foto-rotulo);padding:0 6px}
 .foto .num{position:absolute;left:0;right:0;bottom:6%;font-weight:400;color:var(--cor-foto-numero);line-height:.8;letter-spacing:-.02em;
   font-size:22vw;font-size:80cqi;font-variant-numeric:lining-nums;font-feature-settings:"lnum"}

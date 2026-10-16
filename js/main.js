@@ -255,6 +255,18 @@
   var el = $('contagem'), u = {};
   el.querySelectorAll('b').forEach(function (b) { u[b.dataset.u] = b; });
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function poe(b, valor) {
+    if (!b || b.textContent === valor) return;
+    var bloco = b.parentNode;
+    var subindo = !reduz && bloco && bloco.getAnimations().some(function (a) {
+      return a.animationName === 'sobe-nome' && a.playState === 'running';
+    });
+    if (reduz || subindo || !html.classList.contains('capa-foto')) { b.textContent = valor; return; }
+    b.classList.remove('troca');
+    b.textContent = valor;
+    void b.offsetWidth;
+    b.classList.add('troca');
+  }
   function tick() {
     var agora = Date.now(), r = alvo - agora;
     if (r <= 0) {
@@ -262,10 +274,10 @@
       return;
     }
     var s = Math.floor(r / 1000);
-    u.d.textContent = Math.floor(s / 86400);
-    u.h.textContent = pad(Math.floor(s % 86400 / 3600));
-    u.m.textContent = pad(Math.floor(s % 3600 / 60));
-    u.s.textContent = pad(s % 60);
+    poe(u.d, String(Math.floor(s / 86400)));
+    poe(u.h, pad(Math.floor(s % 86400 / 3600)));
+    poe(u.m, pad(Math.floor(s % 3600 / 60)));
+    poe(u.s, pad(s % 60));
     setTimeout(tick, 1000 - agora % 1000 + 5);
   }
   tick();
