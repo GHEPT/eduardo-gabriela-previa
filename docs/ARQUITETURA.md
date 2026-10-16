@@ -26,7 +26,7 @@
 ```
 <head>  config.js → inicio.js (paleta + fotos de teste) → CSS (paletas → tokens → base/envelope/secoes)
 defer   agenda.js → main.js (lê CONFIG, monta a página, expõe Convite) → pwa.js → dev.js (só com ?dev=1)
-toque no lacre → .abrindo (CSS anima) → 4,4s → aberto(): esconde o envelope, theme-color = papel, foco no h1
+toque no lacre → opening (CSS anima a cena de docs/ABERTURA.md) → fim da timeline, cerca de 2,5s → complete: esconde o envelope, theme-color = papel, foco no h1
 ```
 Os dados entram só por `CONFIG`; as cores, só pelos tokens. O JS nunca escreve cor literal: o relevo usa `rgba(var(--rgb-*))` em `style`.
 

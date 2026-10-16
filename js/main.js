@@ -28,29 +28,144 @@
   try { p = (new URLSearchParams(location.search).get('convite') || '').trim().toLowerCase(); } catch (e) {}
   var civil = p === 'civil';
 
-  /* ================= ENVELOPE ================= */
-  var env = $('env'), bor = $('borboleta');
-  /* sombra da borboleta: cópia do desenho, escurecida e desfocada pelo CSS */
-  var bc = bor.querySelector('.b-corpo'), bs = bc.cloneNode(true);
-  bs.className = 'b-sombra'; var dd = bs.querySelector('defs'); if (dd) dd.remove(); bor.insertBefore(bs, bc);
+  /* ================= MÚSICA (só aparece se houver arquivo; nunca toca antes do toque) ================= */
+  var musica = null;
+  if (C.musicaUrl) {
+    var mBtn = $('musica'), au = new Audio(C.musicaUrl); au.loop = true;
+    musica = { m: mBtn, au: au };
+    mBtn.addEventListener('click', function () {
+      if (au.paused) { au.play(); mBtn.setAttribute('aria-pressed', 'true'); mBtn.textContent = 'pausar música'; }
+      else { au.pause(); mBtn.setAttribute('aria-pressed', 'false'); mBtn.textContent = 'música'; }
+    });
+  }
+  function revelaMusica(tocar) {
+    if (!musica) return;
+    musica.m.hidden = false;
+    musica.m.classList.add('pronta');
+    if (!tocar) { musica.m.classList.add('ja'); return; }
+    var promessa = musica.au.play();
+    if (promessa && promessa.catch) promessa.catch(function () {});
+    musica.m.setAttribute('aria-pressed', 'true');
+    musica.m.textContent = 'pausar música';
+  }
+
+  /* ================= ENVELOPE (docs/ABERTURA.md: idle → opening → complete) ================= */
+  var env = $('env'), bor = $('borboleta'), estado = 'idle';
+  bor.classList.add('b1');
+  var b2 = bor.cloneNode(true);
+  b2.id = 'borboleta-2';
+  b2.classList.remove('b1');
+  b2.classList.add('b2');
+  ['bf-ant', 'bf-pos', 'bf-ouro', 'bf-borda', 'bf-corpo'].forEach(function (id) {
+    var no = b2.querySelector('[id="' + id + '"]');
+    if (no) no.id = id + '2';
+    b2.querySelectorAll('[fill],[stroke]').forEach(function (el) {
+      ['fill', 'stroke'].forEach(function (attr) {
+        var v = el.getAttribute(attr);
+        if (v && v.indexOf('url(#' + id + ')') !== -1) el.setAttribute(attr, v.replace('url(#' + id + ')', 'url(#' + id + '2)'));
+      });
+    });
+  });
+  bor.parentNode.insertBefore(b2, bor.nextSibling);
+  var chao = function (el) { var s = document.createElement('span'); s.className = 'chao'; el.appendChild(s); };
+  chao(bor); chao(b2);
+  for (var pi = 0; pi < 8; pi++) {
+    var part = document.createElement('span');
+    part.className = 'particula';
+    part.style.setProperty('--i', String(pi));
+    bor.appendChild(part);
+  }
+  /* Caminho B: parado no poster até o toque. Âncora ou menos movimento não carregam o vídeo. */
+  var video = null;
+  var alvoHash = null; try { alvoHash = location.hash && document.querySelector(location.hash); } catch (e) {}
+  function tiraVideo() {
+    html.classList.remove('video-capa', 'video-abre');
+    if (video) { video.remove(); video = null; }
+  }
+  if (!reduz && !alvoHash && typeof C.aberturaVideo === 'string' && C.aberturaVideo) {
+    video = document.createElement('video');
+    video.className = 'abertura-video';
+    video.muted = true;
+    video.defaultMuted = true;
+    video.setAttribute('muted', '');
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+    video.preload = 'auto';
+    video.poster = 'assets/abertura/abertura-poster.png';
+    video.setAttribute('aria-hidden', 'true');
+    video.src = C.aberturaVideo;
+    env.appendChild(video);
+    html.classList.add('video-capa');
+    video.addEventListener('ended', function () {
+      if (!video || estado !== 'opening') return;
+      html.classList.remove('fechado');
+      corTema();
+      video.classList.add('saindo');
+      var saiu = false;
+      var fim = function () { if (saiu) return; saiu = true; completo(); };
+      video.addEventListener('transitionend', fim);
+      setTimeout(fim, 260);
+    });
+    video.addEventListener('error', function () {
+      var noMeio = estado === 'opening';
+      tiraVideo();
+      if (noMeio) segueCss();
+    });
+  }
+  env.dataset.cena = 'idle';
 
   function aberto() {
-    html.classList.remove('fechado', 'abrindo');
-    env.hidden = true; bor.hidden = true;
+    html.classList.remove('fechado', 'abrindo', 'video-abre', 'video-capa');
+    env.hidden = true; bor.hidden = true; b2.hidden = true;
     corTema();
   }
+  function completo() {
+    if (estado === 'complete') return;
+    estado = 'complete';
+    env.dataset.cena = 'complete';
+    aberto();
+    var nomes = $('nomes');
+    if (nomes) nomes.focus({ preventScroll: true });
+  }
   function abrir() {
-    if (html.classList.contains('abrindo')) return;
-    if (reduz) { aberto(); $('nomes').focus({ preventScroll: true }); return; }
+    if (estado !== 'idle') return;
+    estado = 'opening';
+    env.dataset.cena = 'opening';
+    $('abrir').disabled = true;
+    revelaMusica(true);
+    if (video) {
+      var toca = video.play();
+      if (toca && toca.catch) toca.catch(function () { tiraVideo(); segueCss(); });
+      return;
+    }
+    segueCss();
+  }
+  function segueCss() {
     html.classList.add('abrindo');
     bor.classList.add('voa');
-    $('abrir').disabled = true;
-    setTimeout(function () { aberto(); $('nomes').focus({ preventScroll: true }); }, 4400);
-    setTimeout(function () { env.style.pointerEvents = 'none'; }, 3400);
+    b2.classList.add('voa');
   }
-  /* link direto para uma seção (ex.: #rsvp) pula o envelope */
-  var alvoHash = null; try { alvoHash = location.hash && document.querySelector(location.hash); } catch (e) {}
-  if (reduz || alvoHash) aberto(); else $('abrir').addEventListener('click', abrir);
+  document.addEventListener('animationend', function (ev) {
+    if (estado !== 'opening') return;
+    if (ev.animationName === 'sobe') completo();
+  });
+  /* âncora (#rsvp) ou movimento reduzido: a capa, sem o vídeo e sem a coreografia */
+  if (alvoHash || reduz) {
+    revelaMusica(false);
+    completo();
+    if (alvoHash) alvoHash.scrollIntoView();
+  } else {
+    var btnAbrir = $('abrir');
+    btnAbrir.addEventListener('click', abrir);
+    document.addEventListener('keydown', function (ev) {
+      if (estado !== 'idle') return;
+      if (ev.key !== 'Enter' && ev.key !== ' ') return;
+      if (ev.target === btnAbrir) return;
+      ev.preventDefault();
+      abrir();
+    });
+  }
 
   /* ================= FOTOS ================= */
   var figs = document.querySelectorAll('.foto');
@@ -177,15 +292,6 @@
     var a = $('cartao').firstChild; a.href = C.cartaoUrl; a.textContent = 'Presentear no cartão';
   }
 
-  /* ================= MÚSICA OPCIONAL ================= */
-  if (C.musicaUrl) {
-    var m = $('musica'), au = new Audio(C.musicaUrl); au.loop = true; m.hidden = false;
-    m.addEventListener('click', function () {
-      if (au.paused) { au.play(); m.setAttribute('aria-pressed', 'true'); m.textContent = 'pausar música'; }
-      else { au.pause(); m.setAttribute('aria-pressed', 'false'); m.textContent = 'música'; }
-    });
-  }
-
   /* ================= REVELAÇÃO SUAVE AO ROLAR ================= */
   var rev = document.querySelectorAll('.rev');
   if (reduz || !('IntersectionObserver' in window)) { rev.forEach(function (n) { n.classList.add('vis'); }); }
@@ -197,5 +303,5 @@
   }
 
   /* pequena API para o painel de testes (js/dev.js) */
-  window.Convite = { poeFoto: poeFoto, corTema: corTema, relevo: relevo };
+  window.Convite = { poeFoto: poeFoto, corTema: corTema };
 })();

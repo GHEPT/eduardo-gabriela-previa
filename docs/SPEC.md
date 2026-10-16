@@ -25,16 +25,13 @@ Estados do `<html>`: `.fechado` (envelope na tela, rolagem travada), `.abrindo` 
 `CONFIG.demo = true` libera os parâmetros marcados como demo. O selo "demo" não aparece. No site final, `demo: false`.
 
 ## 3. Abertura (envelope)
-- Tela inteira, **full-bleed** (seção 11). As quatro abas são triângulos com `clip-path`, cada uma com face e verso (`backface-visibility`). No DOM o verso vem antes da face, para não quebrar em renderizadores sem suporte 3D.
-- Fechado, o envelope é só papel da paleta: sem nomes e sem data. O papel é algodão mais encorpado, com alto relevo seco nas margens (a mesma imagem nas quatro abas, para o desenho não pular no clique). A aba de cima projeta a espessura, igual no primeiro instante da abertura. A aba de baixo pousa nas laterais: um filete de luz e uma sombra de contato seguem o V e sobem com a aba. O lacre de cera é filho da aba de cima, no centro, com "toque para abrir" logo abaixo.
-- As cores das quatro abas vêm dos tokens do envelope (`--cor-envelope*`). A oclusão dos cantos usa `--rgb-sombra`.
-- **Tocar no lacre** (é um `<button>` com aria-label):
-  1. as abas abrem no lugar, sem o envelope recuar: cima 0,4s → baixo 0,58s → laterais 0,74s (5,4s cada). Os primeiros 20% da virada seguem o tempo de antes; a partir daí a aba sobe devagar, ainda cobrindo o envelope, e só assenta no fim. O lacre sobe colado à aba de cima;
-  2. a borboleta, maior, voa de 1,2s a 4,1s. As asas giram em volta do corpo cerca de 7 vezes: a descida é mais rápida que a subida, e a asa de trás atrasa um pouco. A sombra se afasta;
-  3. aos 2,8s, ainda com a borboleta em cena, o envelope começa a sumir (0,8s) e a primeira seção sobe (1,1s). A borboleta só sai aos 4,1s, quando a capa já está à vista;
-  4. aos 5,6s o envelope sai do DOM visível e o foco vai para o `h1`.
-- `prefers-reduced-motion`: abre direto, sem animação. Sem JS: o envelope fica escondido (`<noscript>`).
-- **Aceite:** fechado, só o envelope da paleta (sem nomes, sem data); abre com um toque; nada fica clicável por cima depois de 4,5s; nenhum erro no console.
+A coreografia, os tempos e o aceite estão em `docs/ABERTURA.md` (Caminho A, cerca de 2,5s). Este arquivo não repete a tabela.
+- Tela inteira, **full-bleed** (seção 11). As quatro abas são triângulos com `clip-path`, cada uma com face e verso (`backface-visibility`). No DOM o verso vem antes da face. A face interna é papel liso (`--cor-forro`), sem relevo floral.
+- Fechado: só o papel da paleta, sem nomes e sem data. Algodão, luz do alto à esquerda, sombra do X para baixo-direita. Lacre no centro. "toque para abrir" no terço inferior da aba de baixo.
+- Estados: `idle`, `opening` (um toque, sem reinício) e `complete` (o overlay sai, `theme-color` volta ao papel, foco no `h1`).
+- `CONFIG.aberturaVideo` aponta para o mp4. No toque ele toca mudo, em tela cheia, e sai no `ended`. Se o arquivo falhar, vale a abertura em CSS.
+- `prefers-reduced-motion` e um link com hash (ex.: `#rsvp`) abrem direto na capa, sem o vídeo. Sem JS, o envelope fica escondido (`<noscript>`).
+- **Aceite:** o de `docs/ABERTURA.md`. A capa, a contagem, o `?convite=civil`, o RSVP e os presentes continuam.
 
 ## 4. Capa
 - Fundo na cor do forro (`--cor-forro`), o mesmo branco de papel que aparece quando o envelope abre. O restante da página continua no papel.

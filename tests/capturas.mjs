@@ -21,9 +21,10 @@ mkdirSync(SAIDA, { recursive: true });
 const STUB = '(()=>{const o=window.setTimeout;window.setTimeout=(f,t,...a)=>t>=2000?0:o(f,t,...a)})()';
 const congela = (pg, ms) => pg.evaluate((t) => document.getAnimations().forEach((a) => { a.pause(); a.currentTime = t; }), ms);
 const abreDeVez = (pg) => pg.evaluate(() => {
-  document.getAnimations().forEach((a) => a.finish());
+  document.getAnimations().forEach((a) => { try { a.finish(); } catch (e) {} });
   document.documentElement.classList.remove('fechado', 'abrindo');
-  document.getElementById('env').hidden = true; document.getElementById('borboleta').hidden = true;
+  document.getElementById('env').hidden = true;
+  document.querySelectorAll('.borboleta').forEach((n) => { n.hidden = true; });
   document.querySelectorAll('.rev').forEach((n) => n.classList.add('vis'));
 });
 
@@ -44,8 +45,9 @@ for (const pal of PALETAS) {
   const url = `${BASE}?paleta=${pal}`;
   const { ctx, pg } = await pagina(CEL, url);
   await pg.screenshot({ path: `${SAIDA}/${pal}-01-envelope.png` });
+  await pg.screenshot({ path: `${SAIDA}/${pal}-abertura-0ms.png` });
   await pg.evaluate(STUB); await pg.click('#abrir'); await pg.waitForTimeout(40);
-  for (const ms of [900, 1500, 2000]) { await congela(pg, ms); await pg.waitForTimeout(60); await pg.screenshot({ path: `${SAIDA}/${pal}-02-abrindo-${ms}ms.png` }); }
+  for (const ms of [120, 350, 600, 1200, 1700, 2100, 2500]) { await congela(pg, ms); await pg.waitForTimeout(60); await pg.screenshot({ path: `${SAIDA}/${pal}-abertura-${ms}ms.png` }); }
   await abreDeVez(pg); await pg.waitForTimeout(400);
   await pg.screenshot({ path: `${SAIDA}/${pal}-03-capa.png` });
   if (!TODAS || pal === 'azul-amarelo') {

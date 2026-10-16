@@ -162,9 +162,12 @@ footer .lacre{width:var(--lacre-tam-rodape);height:var(--lacre-tam-rodape);margi
 footer .caps{margin-top:20px;font-size:12px}
 
 /* Música (só se configurada) */
-.musica{position:fixed;z-index:40;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));background:rgba(var(--rgb-fundo),.92);
+.musica{position:fixed;z-index:70;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));background:rgba(var(--rgb-fundo),.92);
   border:0;color:var(--cor-destaque);font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;padding:9px 12px;cursor:pointer}
 .musica[hidden]{display:none}
+.musica.pronta{opacity:0;animation:musica-entra 300ms ease-out 2100ms forwards}
+.musica.pronta.ja{animation:none;opacity:1}
+@keyframes musica-entra{to{opacity:1}}
 
 /* Desktop */
 @media (min-width:900px){

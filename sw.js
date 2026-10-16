@@ -6,16 +6,17 @@
    • Google Fonts: cache depois do 1º acesso
    Ao publicar mudanças, suba a VERSAO para limpar caches antigos.
    ===================================================================== */
-const VERSAO = 'convite-v0.5.2-14';
+const VERSAO = 'convite-v2-video';
 const ESSENCIAIS = [
   './', 'index.html', 'manifest.webmanifest',
   'css/paletas.css', 'css/tokens.css', 'css/base.css', 'css/envelope.css', 'css/secoes.css',
   'js/config.js', 'js/inicio.js', 'js/agenda.js', 'js/main.js', 'js/pwa.js', 'js/dev.js',
-  'assets/texturas/papel.webp', 'assets/texturas/algodao.webp', 'assets/texturas/relevo.webp',
+  'assets/texturas/papel.webp', 'assets/texturas/algodao.webp',
   'assets/lacre/lacre-forma.webp', 'assets/lacre/lacre-letras.webp', 'assets/lacre/lacre-sombra.webp',
   'assets/lacre/lacre-sombreado.webp', 'assets/lacre/lacre-brilho.webp',
   'assets/fotos/foto-1.webp', 'assets/fotos/foto-2.webp', 'assets/fotos/foto-3.webp', 'assets/fotos/faixa.webp',
-  'assets/icones/apple-touch-icon.png', 'assets/icones/icone-192.png'
+  'assets/icones/apple-touch-icon.png', 'assets/icones/icone-192.png',
+  'assets/abertura/abertura.mp4', 'assets/abertura/abertura-poster.png'
 ];
 
 self.addEventListener('install', (e) => {

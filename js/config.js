@@ -69,5 +69,8 @@ window.CONFIG = {
   pixChave: '',       // PENDENTE: chave Pix exibida (e-mail, telefone, aleatória…)
   pixQrUrl: '',       // PENDENTE: imagem do QR Code exportada do banco (ex.: 'assets/pix-qr.png')
   cartaoUrl: '',      // PENDENTE: link de pagamento no cartão (ex.: Asaas), depois de conferir as taxas
-  musicaUrl: ''       // OPCIONAL: arquivo de música; sem ele, o botão nem aparece
+  musicaUrl: '',      // OPCIONAL: arquivo de música; sem ele, o botão nem aparece
+  /* Caminho B (docs/ABERTURA.md): mp4 em tela cheia, no toque. null = só o CSS.
+     O arquivo não muda com ?paleta=. O poster é o envelope fechado. */
+  aberturaVideo: 'assets/abertura/abertura.mp4'
 };
