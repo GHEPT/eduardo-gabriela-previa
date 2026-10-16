@@ -8,8 +8,6 @@
   background-color:var(--cor-forro);
   background-image:radial-gradient(120% 80% at 32% 12%,rgba(var(--rgb-branco),.2),rgba(var(--rgb-branco),0) 58%),var(--textura-algodao); /* taste-skill-ignore: a capa continua o forro */
   background-size:auto,var(--textura-tam);background-blend-mode:normal,soft-light}
-.marca-cruz{position:absolute;left:50%;top:48%;width:min(72vw,280px);height:auto;transform:translate(-50%,-50%);
-  fill:none;stroke:var(--cor-texto);stroke-width:1.6;stroke-linecap:square;opacity:.1;pointer-events:none}
 .capa .contagem i{color:var(--cor-texto)}
 .capa h1,.capa .triptico,.capa .linha,.capa .contagem,.capa .versiculo{position:relative}
 .capa h1{position:relative;display:block;width:max-content;max-width:100%;
@@ -60,19 +58,19 @@ html.capa-entra .capa h1 .nome-d{animation:sobe-nome var(--dur-nome) var(--curva
 html.capa-espera .janela img{transform:scale(1.04)}
 html.capa-espera .janela .vela{opacity:1}
 html.capa-espera .janela .num{opacity:0}
-html.capa-entra .janela img{animation:foto-zoom var(--dur-foto) var(--curva-foto) both}
-html.capa-entra .vela-d{animation:vela-sai var(--dur-quadro) var(--curva-capa) both}
-html.capa-entra .vela-m{animation:vela-sai var(--dur-quadro) var(--curva-capa) var(--atraso-quadro) both}
-html.capa-entra .vela-a{animation:vela-sai var(--dur-quadro) var(--curva-capa) calc(var(--atraso-quadro) * 2) both}
-html.capa-entra .num-d{animation:surge-amp var(--dur-nome) var(--curva-capa) var(--dur-quadro) both}
-html.capa-entra .num-m{animation:surge-amp var(--dur-nome) var(--curva-capa) calc(var(--dur-quadro) + var(--atraso-quadro)) both}
-html.capa-entra .num-a{animation:surge-amp var(--dur-nome) var(--curva-capa) calc(var(--dur-quadro) + var(--atraso-quadro) * 2) both}
+html.capa-foto .janela img{animation:foto-zoom var(--dur-foto) var(--curva-foto) both}
+html.capa-foto .vela-d{animation:vela-sai var(--dur-quadro) var(--curva-capa) both}
+html.capa-foto .vela-m{animation:vela-sai var(--dur-quadro) var(--curva-capa) var(--atraso-quadro) both}
+html.capa-foto .vela-a{animation:vela-sai var(--dur-quadro) var(--curva-capa) calc(var(--atraso-quadro) * 2) both}
+html.capa-foto .num-d{animation:surge-amp var(--dur-nome) var(--curva-capa) var(--dur-quadro) both}
+html.capa-foto .num-m{animation:surge-amp var(--dur-nome) var(--curva-capa) calc(var(--dur-quadro) + var(--atraso-quadro)) both}
+html.capa-foto .num-a{animation:surge-amp var(--dur-nome) var(--curva-capa) calc(var(--dur-quadro) + var(--atraso-quadro) * 2) both}
 @keyframes foto-zoom{from{transform:scale(1.04)}to{transform:none}}
 @keyframes vela-sai{from{opacity:1}to{opacity:0}}
 @media (prefers-reduced-motion:reduce){
-  html.capa-espera .janela img,html.capa-entra .janela img{animation:none;opacity:1;transform:none}
-  html.capa-espera .janela .num,html.capa-entra .janela .num{animation:none;opacity:1}
-  html.capa-espera .janela .vela,html.capa-entra .janela .vela{animation:none;opacity:0}
+  html.capa-espera .janela img,html.capa-foto .janela img{animation:none;opacity:1;transform:none}
+  html.capa-espera .janela .num,html.capa-foto .janela .num{animation:none;opacity:1}
+  html.capa-espera .janela .vela,html.capa-foto .janela .vela{animation:none;opacity:0}
 }
 .foto .rotulo{position:absolute;top:12px;left:0;right:0;font-style:italic;font-size:14px;line-height:1.25;color:var(--cor-foto-rotulo);padding:0 6px}
 .foto .num{position:absolute;left:0;right:0;bottom:6%;font-weight:400;color:var(--cor-foto-numero);line-height:.8;letter-spacing:-.02em;

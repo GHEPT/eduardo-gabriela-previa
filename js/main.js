@@ -127,8 +127,29 @@
     aberto();
     var nomes = $('nomes');
     if (nomes) nomes.focus({ preventScroll: true });
-    if (!reduz) html.classList.add('capa-entra');
+    if (!reduz) {
+      html.classList.add('capa-entra');
+      var titulo = $('nomes');
+      if (titulo) titulo.addEventListener('animationend', function (ev) {
+        if (fimNomes || ev.animationName !== 'sobe-nome' || !ev.target.classList.contains('nome-d')) return;
+        fimNomes = true;
+        var espera = tempoMs('--atraso-nome');
+        setTimeout(function () { nomesLiberados = true; soltaFoto(); }, espera);
+      });
+    }
   }
+  var fimNomes = false, nomesLiberados = false, fotoPronta = false;
+  function tempoMs(nome) {
+    var v = getComputedStyle(html).getPropertyValue(nome).trim();
+    var n = parseFloat(v);
+    if (!n) return 200;
+    return /ms/.test(v) ? n : n * 1000;
+  }
+  function soltaFoto() {
+    if (reduz || !nomesLiberados || !fotoPronta || html.classList.contains('capa-foto')) return;
+    html.classList.add('capa-foto');
+  }
+  function marcaFoto() { fotoPronta = true; soltaFoto(); }
   function abrir() {
     if (estado !== 'idle') return;
     estado = 'opening';
@@ -218,6 +239,11 @@
   if (faixa && C.fotoFaixa) {
     if (C.fotoFaixaAlt) faixa.alt = C.fotoFaixaAlt;
     faixa.src = C.fotoFaixa;
+    if (faixa.complete && faixa.naturalWidth > 0) marcaFoto();
+    else {
+      faixa.addEventListener('load', marcaFoto);
+      faixa.addEventListener('error', marcaFoto);
+    }
   } else {
     (C.fotos || []).forEach(function (u, i) { poeFoto(i, u, C.fotosPos && C.fotosPos[i]); });
   }
