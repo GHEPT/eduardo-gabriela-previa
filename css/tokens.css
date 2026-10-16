@@ -128,8 +128,10 @@
   --curva-voo: cubic-bezier(.37,0,.3,1);       /* borboleta */
   --curva-sobe: cubic-bezier(.2,.7,.2,1);      /* cartão sobe */
   --curva-capa: cubic-bezier(.22,1,.36,1);     /* entrada suave da capa */
+  --curva-foto: cubic-bezier(.4,0,.6,1);       /* zoom lento, quase linear */
   --dur-nome: .7s;
   --atraso-nome: .2s;
+  --dur-foto: 1.6s;
   --dur-aba: 5.4s;
   --dur-revelar: .9s;
 

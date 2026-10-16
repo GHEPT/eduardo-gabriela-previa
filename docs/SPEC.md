@@ -39,7 +39,7 @@ A coreografia, os tempos e o aceite estão em `docs/ABERTURA.md` (Caminho A, cer
 - Uma cruz fina fica atrás do conteúdo, em marca d'água (`opacity` baixa, cor do texto). Não compete com as fotos.
 - Versículo: “E, acima de tudo, tenham amor, pois o amor une perfeitamente todas as coisas.” Colossenses 3:14. Sem a frase "até o almoço" e sem o link "o convite".
 - Contagem: alvo `CONFIG.datas.almoco` (ou `civil`). Ao zerar, mostra "Hoje celebramos." até `fimDoDia`; depois, "Celebramos em 11 de dezembro de 2026. Obrigado por fazer parte."
-- Fotos: uma imagem só (`CONFIG.fotoFaixa`), sem esticar. A altura para antes das tatuagens. As barras não escondem um pedaço diferente em cada quadro: a foto continua por baixo. Sem a faixa, valem as três de `CONFIG.fotos`.
+- Fotos: uma imagem só (`CONFIG.fotoFaixa`), sem esticar. A altura para antes das tatuagens. As barras não escondem um pedaço diferente em cada quadro: a foto continua por baixo. Sem a faixa, valem as três de `CONFIG.fotos`. Na entrada, a foto faz fade e um zoom de 1,04 para 1 em 1,6s. Barras e números entram em fade depois. `prefers-reduced-motion` mostra a foto pronta.
 - **Aceite:** o relógio não "pula"; a contagem fica certa em qualquer fuso do aparelho; as fotos carregam sem distorcer; o texto alternativo é descritivo.
 
 ## 5. Convite + calendário
