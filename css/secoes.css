@@ -42,32 +42,37 @@ html.capa-entra .capa h1 .nome-d{animation:sobe-nome var(--dur-nome) var(--curva
 .triptico{width:min(100%,var(--largura-miolo));margin:0}
 .janela{position:relative;overflow:hidden}
 .janela img{display:block;width:100%;height:auto;filter:grayscale(1) contrast(1.04);transform-origin:center}
-.janela .barra{position:absolute;top:0;bottom:0;width:8px;background:var(--cor-forro);transform:translateX(-50%);z-index:2}
+.janela .barra{position:absolute;top:0;bottom:0;width:8px;background:var(--cor-forro);transform:translateX(-50%);z-index:3}
 .janela .barra:nth-child(2){left:33.333%}
 .janela .barra:nth-child(3){left:66.666%}
 .janela::after{content:"";position:absolute;left:0;right:0;bottom:0;height:32%;z-index:1;pointer-events:none;
   background:linear-gradient(to top,rgba(var(--rgb-veu-foto),.48),rgba(var(--rgb-veu-foto),0))} /* taste-skill-ignore: véu neutro sob os números */
-.janela .num{position:absolute;bottom:4%;z-index:3;width:33.333%;text-align:center;font-weight:400;color:var(--cor-foto-numero);
+.janela .num{position:absolute;bottom:4%;z-index:4;width:33.333%;text-align:center;font-weight:400;color:var(--cor-foto-numero);
   line-height:.8;letter-spacing:-.02em;font-size:clamp(44px,14vw,72px);font-variant-numeric:lining-nums;font-feature-settings:"lnum";
   text-shadow:0 1px 14px rgba(var(--rgb-veu-foto),.28)} /* taste-skill-ignore: legibilidade do número sobre a foto */
 .janela .num:nth-child(4){left:0}
 .janela .num:nth-child(5){left:33.333%}
 .janela .num:nth-child(6){left:66.666%}
-html.capa-espera .janela img{opacity:0;transform:scale(1.04)}
-html.capa-espera .janela::after,
-html.capa-espera .janela .barra,
+.janela .vela{position:absolute;top:0;bottom:0;z-index:2;background:var(--cor-forro);pointer-events:none;opacity:0}
+.janela .vela-d{left:0;width:33.333%}
+.janela .vela-m{left:33.333%;width:33.334%}
+.janela .vela-a{left:66.667%;width:33.333%}
+html.capa-espera .janela img{transform:scale(1.04)}
+html.capa-espera .janela .vela{opacity:1}
 html.capa-espera .janela .num{opacity:0}
-html.capa-entra .janela img{animation:foto-fade var(--dur-foto) var(--curva-capa) both,foto-zoom var(--dur-foto) var(--curva-foto) both}
-html.capa-entra .janela::after{animation:surge-amp var(--dur-foto) var(--curva-capa) both}
-html.capa-entra .janela .barra,
-html.capa-entra .janela .num{animation:surge-amp var(--dur-nome) var(--curva-capa) var(--dur-foto) both}
-@keyframes foto-fade{from{opacity:0}to{opacity:1}}
+html.capa-entra .janela img{animation:foto-zoom var(--dur-foto) var(--curva-foto) both}
+html.capa-entra .vela-d{animation:vela-sai var(--dur-quadro) var(--curva-capa) both}
+html.capa-entra .vela-m{animation:vela-sai var(--dur-quadro) var(--curva-capa) var(--atraso-quadro) both}
+html.capa-entra .vela-a{animation:vela-sai var(--dur-quadro) var(--curva-capa) calc(var(--atraso-quadro) * 2) both}
+html.capa-entra .num-d{animation:surge-amp var(--dur-nome) var(--curva-capa) var(--dur-quadro) both}
+html.capa-entra .num-m{animation:surge-amp var(--dur-nome) var(--curva-capa) calc(var(--dur-quadro) + var(--atraso-quadro)) both}
+html.capa-entra .num-a{animation:surge-amp var(--dur-nome) var(--curva-capa) calc(var(--dur-quadro) + var(--atraso-quadro) * 2) both}
 @keyframes foto-zoom{from{transform:scale(1.04)}to{transform:none}}
+@keyframes vela-sai{from{opacity:1}to{opacity:0}}
 @media (prefers-reduced-motion:reduce){
   html.capa-espera .janela img,html.capa-entra .janela img{animation:none;opacity:1;transform:none}
-  html.capa-espera .janela::after,html.capa-entra .janela::after,
-  html.capa-espera .janela .barra,html.capa-entra .janela .barra,
   html.capa-espera .janela .num,html.capa-entra .janela .num{animation:none;opacity:1}
+  html.capa-espera .janela .vela,html.capa-entra .janela .vela{animation:none;opacity:0}
 }
 .foto .rotulo{position:absolute;top:12px;left:0;right:0;font-style:italic;font-size:14px;line-height:1.25;color:var(--cor-foto-rotulo);padding:0 6px}
 .foto .num{position:absolute;left:0;right:0;bottom:6%;font-weight:400;color:var(--cor-foto-numero);line-height:.8;letter-spacing:-.02em;
