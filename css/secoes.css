@@ -2,14 +2,14 @@
    secoes.css: capa, convite, programação, RSVP, presentes, rodapé
    ===================================================================== */
 
-/* ===== Capa: três quadros da data, contagem, versículo ===== */
+/* ===== Capa: três quadros da data e contagem ===== */
 .capa{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:calc(48px + env(safe-area-inset-top)) 20px 36px;overflow:hidden;
+  text-align:center;padding:calc(48px + env(safe-area-inset-top)) 20px clamp(56px,8vh,88px);overflow:hidden;
   background-color:var(--cor-forro);
   background-image:radial-gradient(120% 80% at 32% 12%,rgba(var(--rgb-branco),.2),rgba(var(--rgb-branco),0) 58%),var(--textura-algodao); /* taste-skill-ignore: a capa continua o forro */
   background-size:auto,var(--textura-tam);background-blend-mode:normal,soft-light}
 .capa .contagem i{color:var(--cor-texto)}
-.capa h1,.capa .triptico,.capa .linha,.capa .contagem,.capa .versiculo{position:relative}
+.capa h1,.capa .triptico,.capa .linha,.capa .contagem{position:relative}
 .capa h1{position:relative;display:block;width:max-content;max-width:100%;
   font-size:clamp(78px,23vw,112px);line-height:.8;color:var(--cor-texto);
   margin:0 auto clamp(40px,6vh,64px)}
@@ -75,29 +75,21 @@ html.capa-foto .num-a{animation:surge-amp var(--dur-nome) var(--curva-capa) calc
 html.capa-espera .capa .linha span,
 html.capa-espera .contagem .bloco,
 html.capa-espera .contagem i{opacity:0;transform:translate3d(0,12px,0)}
-html.capa-espera .versiculo span,
-html.capa-espera .versiculo cite{opacity:0}
 html.capa-foto{
   --fim-numero:calc(var(--dur-quadro) + var(--atraso-quadro) * 2 + var(--dur-nome));
   --entra-cidade:calc(var(--fim-numero) + var(--atraso-nome));
   --entra-contagem:calc(var(--entra-cidade) + var(--dur-nome) + var(--atraso-nome));
-  --entra-verso:calc(var(--entra-contagem) + var(--atraso-bloco) * 3 + var(--dur-nome) + var(--atraso-nome));
-  --entra-cite:calc(var(--entra-verso) + var(--atraso-nome));
 }
 html.capa-foto .capa .linha span{animation:sobe-nome var(--dur-nome) var(--curva-capa) var(--entra-cidade) both}
 html.capa-foto .bloco-d,html.capa-foto .contagem i:nth-of-type(1){animation:sobe-nome var(--dur-nome) var(--curva-capa) var(--entra-contagem) both}
 html.capa-foto .bloco-h,html.capa-foto .contagem i:nth-of-type(2){animation:sobe-nome var(--dur-nome) var(--curva-capa) calc(var(--entra-contagem) + var(--atraso-bloco)) both}
 html.capa-foto .bloco-m,html.capa-foto .contagem i:nth-of-type(3){animation:sobe-nome var(--dur-nome) var(--curva-capa) calc(var(--entra-contagem) + var(--atraso-bloco) * 2) both}
 html.capa-foto .bloco-s{animation:sobe-nome var(--dur-nome) var(--curva-capa) calc(var(--entra-contagem) + var(--atraso-bloco) * 3) both}
-html.capa-foto .versiculo span{animation:surge-amp var(--dur-revelar) var(--curva-capa) var(--entra-verso) both}
-html.capa-foto .versiculo cite{animation:surge-amp var(--dur-revelar) var(--curva-capa) var(--entra-cite) both}
 .contagem b.troca{animation:surge-amp var(--dur-digito) var(--curva-capa) both}
 @media (prefers-reduced-motion:reduce){
   html.capa-espera .capa .linha span,html.capa-foto .capa .linha span,
   html.capa-espera .contagem .bloco,html.capa-foto .contagem .bloco,
   html.capa-espera .contagem i,html.capa-foto .contagem i,
-  html.capa-espera .versiculo span,html.capa-foto .versiculo span,
-  html.capa-espera .versiculo cite,html.capa-foto .versiculo cite,
   .contagem b.troca{animation:none;opacity:1;transform:none}
 }
 .foto .rotulo{position:absolute;top:12px;left:0;right:0;font-style:italic;font-size:14px;line-height:1.25;color:var(--cor-foto-rotulo);padding:0 6px}
@@ -107,14 +99,41 @@ html.capa-foto .versiculo cite{animation:surge-amp var(--dur-revelar) var(--curv
 .foto.tem-img .num{z-index:1;text-shadow:0 1px 14px rgba(var(--rgb-veu-foto),.28)} /* taste-skill-ignore: legibilidade do número sobre a foto */
 .capa .linha{margin-top:clamp(22px,3.6vh,34px);line-height:2;margin-right:-.24em}
 .capa .linha span{display:block}
-.versiculo{max-width:34ch;margin-top:clamp(16px,2.8vh,26px);font-style:italic;font-size:var(--texto-m);line-height:1.45;color:var(--cor-texto-suave);text-wrap:balance}
-.versiculo cite{display:block;margin-top:.55em;font-style:normal;font-size:.86em;letter-spacing:.03em}
-.contagem{display:flex;align-items:flex-start;justify-content:center;margin-top:clamp(24px,3.8vh,36px);color:var(--cor-texto)}
-.contagem div{display:flex;flex-direction:column;align-items:center;min-width:58px}
-.contagem b{font-weight:300;font-size:34px;line-height:1;font-variant-numeric:lining-nums tabular-nums;font-feature-settings:"lnum","tnum"}
+.contagem{display:flex;align-items:flex-start;justify-content:center;margin-top:clamp(40px,6.4vh,68px);color:var(--cor-texto)}
+.contagem div{display:flex;flex-direction:column;align-items:center;min-width:66px}
+.contagem b{font-weight:300;font-size:40px;line-height:1;font-variant-numeric:lining-nums tabular-nums;font-feature-settings:"lnum","tnum"}
 .contagem small{margin-top:8px;font-size:12px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--cor-texto-suave);margin-right:-.22em}
 .contagem i{font-style:normal;font-size:24px;line-height:1.2;color:var(--cor-acento)}
 .contagem .fim{font-style:italic;font-weight:300;font-size:24px;line-height:1.35;max-width:22ch}
+
+/* ===== Versículo: palco fixo, a frase entra com o scroll ===== */
+.verso-secao{height:280vh;padding:0;background-color:var(--cor-fundo);background-image:none;view-timeline-name:--verso;view-timeline-axis:block}
+.verso-palco{position:sticky;top:0;height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:calc(32px + env(safe-area-inset-top)) 28px calc(32px + env(safe-area-inset-bottom));
+  background-color:var(--cor-fundo);background-image:none}
+.versiculo{max-width:16em;margin:0;font-style:italic;font-size:var(--texto-m);line-height:1.45;color:var(--cor-texto-suave);text-wrap:balance}
+.versiculo cite{display:block;margin-top:1.1em;font-style:normal;font-size:.86em;letter-spacing:.03em}
+.verso-parte{display:block}
+.verso-parte,.versiculo cite{opacity:0;transform:translate3d(0,var(--desloc-verso),0)}
+@supports (animation-timeline:view()){
+  .verso-parte,.versiculo cite{animation:sobe-verso linear both;animation-timeline:--verso}
+  .verso-parte:nth-child(1){animation-range:contain 0% contain 16%}
+  .verso-parte:nth-child(2){animation-range:contain 12% contain 28%}
+  .verso-parte:nth-child(3){animation-range:contain 24% contain 40%}
+  .verso-parte:nth-child(4){animation-range:contain 36% contain 52%}
+  .verso-parte:nth-child(5){animation-range:contain 48% contain 64%}
+  .versiculo cite{animation-range:contain 66% contain 80%}
+}
+@keyframes sobe-verso{from{opacity:0;transform:translate3d(0,var(--desloc-verso),0)}to{opacity:1;transform:none}}
+html.verso-js .verso-parte,html.verso-js .versiculo cite{animation:none}
+@media (prefers-reduced-motion:reduce){
+  .verso-secao{height:auto;padding:var(--secao-y) var(--secao-x)}
+  .verso-palco{position:relative;height:auto;padding:0}
+  .verso-parte,.versiculo cite{animation:none;opacity:1;transform:none}
+}
+@media (min-width:900px) and (prefers-reduced-motion:reduce){
+  .verso-secao{padding:var(--secao-y-desktop) var(--secao-x)}
+}
 
 /* ===== Seções ===================================================== */
 section{padding:var(--secao-y) var(--secao-x)}
@@ -236,7 +255,7 @@ footer .caps{margin-top:20px;font-size:12px}
   .fotos{max-width:min(600px,calc((100svh - 400px) * 1.59))}
   .capa .linha span{display:inline}
   .capa .linha span+span::before{content:" · "}
-  .contagem div{min-width:84px}.contagem b{font-size:40px}
+  .contagem div{min-width:92px}.contagem b{font-size:46px}
   section{padding:var(--secao-y-desktop) var(--secao-x)}
   .pix{grid-template-columns:auto 1fr;justify-items:start;text-align:left;align-items:center;gap:36px}
   .pix>h3{grid-column:1/-1}

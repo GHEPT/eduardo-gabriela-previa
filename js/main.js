@@ -358,6 +358,40 @@
     var a = $('cartao').firstChild; a.href = C.cartaoUrl; a.textContent = 'Presentear no cartão';
   }
 
+  /* Versículo acompanha o scroll no CSS. Este caminho só vale sem animation-timeline. */
+  var verso = $('versiculo');
+  var timeline = window.CSS && CSS.supports && CSS.supports('animation-timeline: view()');
+  if (verso && !reduz && !timeline) {
+    html.classList.add('verso-js');
+    var partes = verso.querySelectorAll('.verso-parte, cite');
+    var faixas = [[0, .16], [.12, .28], [.24, .40], [.36, .52], [.48, .64], [.66, .80]];
+    var sobeVerso = parseFloat(getComputedStyle(html).getPropertyValue('--desloc-verso')) || 8;
+    var pedidoVerso = false;
+    function aplicaVerso() {
+      pedidoVerso = false;
+      var vh = window.innerHeight;
+      var percurso = verso.offsetHeight - vh;
+      var p = percurso <= 0 ? 1 : Math.min(1, Math.max(0, -verso.getBoundingClientRect().top / percurso));
+      for (var i = 0; i < partes.length; i++) {
+        var faixa = faixas[i] || [0, 1];
+        var t = (p - faixa[0]) / (faixa[1] - faixa[0]);
+        t = Math.min(1, Math.max(0, t));
+        partes[i].style.opacity = String(t);
+        partes[i].style.transform = t >= 1 ? '' : 'translate3d(0,' + ((1 - t) * sobeVerso).toFixed(2) + 'px,0)';
+      }
+    }
+    function pedeVerso() {
+      if (pedidoVerso) return;
+      pedidoVerso = true;
+      requestAnimationFrame(aplicaVerso);
+    }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function () { pedeVerso(); }, { rootMargin: '25% 0px' }).observe(verso);
+    }
+    window.addEventListener('scroll', pedeVerso, { passive: true });
+    window.addEventListener('resize', pedeVerso);
+  }
+
   /* ================= REVELAÇÃO SUAVE AO ROLAR ================= */
   var rev = document.querySelectorAll('.rev');
   if (reduz || !('IntersectionObserver' in window)) { rev.forEach(function (n) { n.classList.add('vis'); }); }

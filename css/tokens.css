@@ -138,6 +138,7 @@
   --dur-digito: 150ms;          /* troca do número, sem odômetro */
   --desloc-foto: 20px;          /* parallax máximo da foto inteira */
   --desloc-nome: 12px;          /* subida leve dos nomes ao sair */
+  --desloc-verso: 8px;          /* subida de cada trecho do versículo */
   --curso-scroll: 200px;        /* rolagem em que o efeito chega ao fim */
   --dur-aba: 5.4s;
   --dur-revelar: .9s;
